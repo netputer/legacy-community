@@ -3,7 +3,7 @@
         <div class="w-container">
             <div class="author">
                 <div class="avatar">
-                    <img class="g-avatar g-avatar-large" src="/images/avatar-default.png" ng-src="{{ ctrl.topic.author.avatar }}">
+                    <img class="g-avatar g-avatar-large" src="images/avatar-default.png" ng-src="{{ ctrl.topic.author.avatar }}">
                 </div>
                 <span class="name w-wxxxc">{{ ctrl.topic.author.nick }} <em ng-if="ctrl.topic.author.role === 'GROUP_ADMIN'" class="role g-role">组长</em></span>
             </div>
@@ -94,7 +94,7 @@
     </div>
     <div class="publish w-cf" ng-if="ctrl.topic.curUserPermissions.indexOf('ADD_REPLY') > -1">
         <div class="avatar">
-            <img class="g-avatar g-avatar-small" src="/images/avatar-default.png" ng-src="{{ ctrl.user.avatar }}">
+            <img class="g-avatar g-avatar-small" src="images/avatar-default.png" ng-src="{{ ctrl.user.avatar }}">
         </div>
         <div class="info">
             <div class="nickname">

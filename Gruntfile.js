@@ -67,7 +67,7 @@ module.exports = function (grunt) {
                             require('connect-modrewrite')([
                                 '^/$ /group/ [R]',
                                 // '^/group/?([^.]*)$ http://127.0.0.1:9999/$1 [P]'
-                                '^/group/?([^.]*)$ /index.html [L]'
+                                '^/group/?(.*)$ /$1 [L]'
                                 // '^/(groups|topics/notifications)/?[^.]*$ /index.html [L]'
                             ]),
                             mountFolder(connect, pathConfig.tmp),
