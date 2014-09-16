@@ -1,3 +1,4 @@
-This is a project drived with WDJ-Generator
-===========
-我是赵望野，不用太感谢我。
+Community
+=========
+
+豌豆荚游戏小组 Web 版
