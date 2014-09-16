@@ -123,7 +123,8 @@ module.exports = function (grunt) {
                     dest: '<%= paths.dist %>',
                     src: [
                         '**/*.html',
-                        '!components/**/*.html',
+                        'components/**/*',
+                        'javascripts/**/*',
                         '!compass/**/*.html',
                         'images/**/*.{webp,gif,png,jpg,jpeg,ttf,otf,svg}'
                     ]
@@ -301,16 +302,16 @@ module.exports = function (grunt) {
     grunt.registerTask('build:staging', [
         'clean:dist',
         'concurrent:dist',
-        'useminPrepare',
-        'concat',
-        'uglify',
-        // 'cssmin', // Uncomment this line if using none-sass style
-        // 'requirejs:dist', // Uncomment this line if using RequireJS in your project
-        'rev',
-        'copy:compass',
-        'imagemin',
-        'usemin',
-        'htmlmin'
+        // 'useminPrepare',
+        // 'concat',
+        // 'uglify',
+        // // 'cssmin', // Uncomment this line if using none-sass style
+        // // 'requirejs:dist', // Uncomment this line if using RequireJS in your project
+        // 'rev',
+        // 'copy:compass',
+        // 'imagemin',
+        // 'usemin',
+        // 'htmlmin'
     ]);
 
     grunt.registerTask('build:production', [
