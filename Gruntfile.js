@@ -281,7 +281,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('serve', [
-        // 'concurrent:server',
+        'concurrent:server',
         'connect:server',
         // 'karma:server',
         // 'open',
