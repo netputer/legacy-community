@@ -1,0 +1,144 @@
+<div class="g-group">
+    <div class="summary w-component-card">
+        <div class="summary-header w-cf">
+            <div class="icon">
+                <img class="g-app-icon" src="images/avatar-default.png" ng-src="{{ ctrl.group.icon.url }}">
+            </div>
+            <div class="info">
+                <h3>{{ ctrl.group.title }}</h3>
+                <div class="w-text-secondary">
+                    <span class="topic">话题 {{ ctrl.group.totalTopicsCount }}</span>
+                    <span class="member">成员 {{ ctrl.group.membersCount }}</span>
+                </div>
+            </div>
+            <div class="action">
+                <button ng-if="!ctrl.group.curUserRole" class="w-btn w-btn-primary g-no-animate" ng-click="ctrl.joinGroup()">加入小组</button>
+                <button ng-if="!!ctrl.group.curUserRole && ctrl.group.curUserPermissions.indexOf('ADD_TOPIC') > -1" class="w-btn w-btn-primary g-no-animate" ng-click="ctrl.postTopic()">发表话题</button>
+            </div>
+        </div>
+        <div class="summary-slogon w-text-secondary">{{ ctrl.group.description }}</div>
+        <div class="summary-footer w-cf">
+            <div class="title">小组成员</div>
+            <ul class="g-avatar-wall">
+                <li ng-repeat="member in ctrl.membersSummary"><img class="g-avatar g-avatar-small" src="images/avatar-default.png" ng-src="{{ member.avatar }}"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="body">
+        <div class="body-nav w-cf">
+            <ul>
+                <li ng-class="{selected: ctrl.currentTab === 'topics'}" ng-click="ctrl.currentTab = 'topics'">小组话题</li>
+                <li ng-class="{selected: ctrl.currentTab === 'members'}" ng-click="ctrl.currentTab = 'members'">小组成员</li>
+            </ul>
+        </div>
+
+        <div class="topics" ng-show="ctrl.currentTab === 'topics'" infinite-scroll="ctrl.loadMoreTopics()" infinite-scroll-disabled="ctrl.busy || !ctrl.hasMore || ctrl.currentTab !== 'topics'" infinite-scroll-distance="0.2">
+            <ul>
+                <li ng-repeat="topic in ctrl.topics track by $index" class="w-component-card w-component-card-hover" ng-click="ctrl.showTopic(topic.id)">
+                    <span class="sticky" ng-show="topic.isSticky">置顶</span>
+                    <div class="avatar">
+                        <img class="g-avatar" src="images/avatar-default.png" ng-src="{{ topic.author.avatar }}">
+                    </div>
+                    <div class="info">
+                        <div class="nickname w-wc">{{ topic.author.nick }}</div>
+                        <div class="content">{{ topic.message }}</div>
+                        <div class="pics w-cf" ng-if="topic.pictures.length">
+                            <ul>
+                                <li ng-repeat="picture in topic.pictures" class="pic" style="background-image:url({{ picture.url }})"></li>
+                            </ul>
+                        </div>
+                        <div class="status w-cf">
+                            <div class="meta w-text-secondary">
+                                <div class="like">
+                                    <span class="g-icon g-icon-like" ng-class="{'g-icon-like': !topic.isCurUserLiked, 'g-icon-liked': topic.isCurUserLiked}"></span>
+                                    <span class="count">{{ topic.likesCount }}</span>
+                                </div>
+                                <div class="comment">
+                                    <span class="g-icon g-icon-comment"></span>
+                                    <span class="count">{{ topic.repliesCount }}</span>
+                                </div>
+                            </div>
+                            <div class="last w-text-info">{{ topic.lastReplyAuthor ? topic.lastReplyAuthor.nick + ' 回复于' : '' }}{{ topic.updatedTime | relative }}</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="g-infinite-loading w-text-info" ng-show="ctrl.busy">正在加载…</div>
+            <div class="g-infinite-end w-text-info" ng-hide="ctrl.hasMore">没有更多话题了</div>
+        </div>
+
+        <div class="members w-component-card" ng-class="{manage: ctrl.group.curUserPermissions.indexOf('ADD_GROUP_ADMIN') > -1 && ctrl.group.curUserPermissions.indexOf('ADD_GROUP_BLACKUSER') > -1}" ng-show="ctrl.currentTab === 'members'">
+            <div class="members-nav w-cf">
+                <ul>
+                    <li ng-class="{selected: ctrl.currentMemberTab === 'all'}" ng-click="ctrl.currentMemberTab = 'all'"><a>全部成员</a></li>
+                    <!-- <li ng-class="{selected: ctrl.currentMemberTab === 'block'}" ng-click="ctrl.currentMemberTab = 'block'"><a>黑名单</a></li> -->
+                </ul>
+                <a class="exit" ng-if="ctrl.group.curUserRole === 'GROUP_MEMBER'" ng-click="ctrl.leaveGroup()">退出小组</a>
+            </div>
+            <div class="members-all" ng-show="ctrl.currentMemberTab === 'all'">
+                <div class="members-admin">
+                    <div class="title">组长</div>
+                    <div class="list">
+                        <div class="notice w-text-info" ng-hide="ctrl.admins.length">暂无组长</div>
+                        <ul class="w-cf">
+                            <li ng-repeat="admin in ctrl.admins">
+                                <div class="avatar">
+                                    <img class="g-avatar g-avatar-large" src="images/avatar-default.png" ng-src="{{ admin.avatar }}">
+                                </div>
+                                <div class="action">
+                                    <span class="nickname w-wc">{{ admin.nick }}</span>
+                                    <span ng-if="ctrl.group.curUserPermissions.indexOf('DEL_GROUP_ADMIN') > -1" class="g-icon-setting-btn dropdown dropdown-toggle">
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li><a ng-click="ctrl.setAsNormal(admin)">取消管理员</a></li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="members-member">
+                    <div class="title">小组成员</div>
+                    <div class="list">
+                        <ul class="w-cf">
+                            <li ng-repeat="member in ctrl.members">
+                                <div class="avatar">
+                                    <img class="g-avatar g-avatar-large" src="images/avatar-default.png" ng-src="{{ member.avatar }}">
+                                </div>
+                                <div class="action">
+                                    <span class="nickname w-wc">{{ member.nick }}</span>
+                                    <span ng-if="ctrl.group.curUserPermissions.indexOf('ADD_GROUP_ADMIN') > -1 && ctrl.group.curUserPermissions.indexOf('ADD_GROUP_BLACKUSER') > -1" class="g-icon-setting-btn dropdown dropdown-toggle">
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <!-- <li><a ng-click="ctrl.setAsBlock(member)">加入黑名单</a></li> -->
+                                            <li><a ng-click="ctrl.setAsAdmin(member)">设为管理员</a></li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div cmty-pagination size="ctrl.membersPerPage" total="ctrl.totalMembers" range="5" callback="ctrl.showMembers(page)"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="members-block" ng-show="ctrl.currentMemberTab === 'block'">
+                <div class="list w-cf">
+                    <ul>
+                        <li ng-repeat="block in ctrl.blocks">
+                            <div class="avatar">
+                                <img class="g-avatar g-avatar-large" src="images/avatar-default.png" ng-src="{{ block.avatar }}">
+                            </div>
+                            <div class="action">
+                                <span class="nickname w-wc">{{ block.nick }}</span>
+                                <span ng-if="ctrl.group.curUserPermissions.indexOf('ADD_GROUP_ADMIN') > -1 && ctrl.group.curUserPermissions.indexOf('ADD_GROUP_BLACKUSER') > -1" class="g-icon-setting-btn dropdown dropdown-toggle">
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a ng-click="ctrl.setAsNormal(block, 'GROUP_BLACKUSER')">从黑名单中移除</a></li>
+                                    </ul>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

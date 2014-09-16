@@ -1,0 +1,282 @@
+@import "icons/*.png";
+
+.g-no-animate {
+    -webkit-transition: all 0s linear;
+}
+
+@each $icon in comment, delete, image, like, more, setting {
+    .g-icon-#{$icon} {
+        display: inline-block;
+        @include icons-sprite(#{$icon}-normal);
+        height: icons-sprite-height(#{$icon}-normal);
+        width: icons-sprite-width(#{$icon}-normal);
+    }
+
+    %g-icon-#{$icon}-hover {
+        display: inline-block;
+        @include icons-sprite(#{$icon}-hover);
+        height: icons-sprite-height(#{$icon}-hover);
+        width: icons-sprite-width(#{$icon}-hover);
+    }
+
+    %g-icon-#{$icon}-active {
+        display: inline-block;
+        @include icons-sprite(#{$icon}-active);
+        height: icons-sprite-height(#{$icon}-active);
+        width: icons-sprite-width(#{$icon}-active);
+    }
+
+    .g-icon-#{$icon}-btn {
+        @extend .g-icon-#{$icon};
+
+        &:hover,
+        &.open {
+            @extend %g-icon-#{$icon}-hover;
+        }
+
+        &:active {
+            @extend %g-icon-#{$icon}-active;
+        }
+    }
+}
+
+.g-icon-liked {
+    display: inline-block;
+    @include icons-sprite(liked);
+    height: icons-sprite-height(liked);
+    width: icons-sprite-width(liked);
+}
+
+.old-g-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 24px;
+
+    &.g-avatar-large {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+.g-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 24px;
+
+    &.g-avatar-small {
+        width: 24px;
+        height: 24px;
+    }
+
+    &.g-avatar-large {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+.g-role {
+    background-color: $standardColor;
+    border-radius: 10px;
+    color: #fff;
+    padding: 0 5px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.g-infinite-loading,
+.g-infinite-end {
+    text-align: center;
+    font-size: 14px;
+}
+
+.o-pagination-ctn {
+    font-size: 12px;
+    text-align: center;
+    list-style: none;
+    color: $textPrimary;
+
+    .o-pagination-arrow,
+    .o-pagination-num,
+    .o-pagination-dot {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .o-pagination-num {
+        margin: 0 -5px;
+        padding: 2px 5px;
+        display: inline-block;
+
+        &.current {
+            font-size: 18px;
+        }
+    }
+
+    .o-pagination-dot {
+        display : inline-block;
+        // margin: 0 5px;
+        color: $textInfo;
+        cursor: default;
+    }
+
+    .o-pagination-arrow {
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        margin: 20px 0;
+        position: relative;
+        width: 40px;
+        white-space: nowrap;
+
+        &.previous,
+        &.next {
+            &.disable {
+                color: #d5d5d5;
+                cursor: default;
+                text-decoration: none;
+
+                &::before {
+                    @include icons-sprite(pagination-previous-disable);
+                }
+            }
+
+            &::before {
+                @include icons-sprite(pagination-previous);
+
+                content: "";
+                display: block;
+                height: 40px;
+                position: absolute;
+                top: 0;
+                width: 40px;
+            }
+        }
+
+        &.previous {
+            &.disable {
+                &::before {
+                    @include icons-sprite(pagination-previous-disable);
+                }
+            }
+
+            &::before {
+                @include icons-sprite(pagination-previous);
+                left: -50px;
+            }
+        }
+
+        &.next {
+            &.disable {
+                &::before {
+                    @include icons-sprite(pagination-next-disable);
+                }
+            }
+
+            &::before {
+                @include icons-sprite(pagination-next);
+                right: -50px;
+            }
+        }
+    }
+}
+
+.g-publish {
+    .content {
+        position: relative;
+
+        textarea {
+            padding-bottom: 60px;
+        }
+
+        .pics {
+            position: absolute;
+            left: 1px;
+            bottom: 1px;
+            padding: 5px;
+            list-style: none;
+        }
+
+        li {
+            float: left;
+            margin-right: 5px;
+        }
+
+        img {
+            width: 50px;
+            height: 50px;
+        }
+    }
+
+    .action {
+        .upload {
+            float: left;
+            cursor: pointer;
+            color: #999;
+            position: relative;
+            overflow: hidden;
+
+            input {
+                cursor: pointer;
+                font-size: 200px;
+                opacity: 0;
+                outline: none;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            &:hover {
+                color: #777;
+
+                .g-icon-image {
+                    @extend %g-icon-image-hover;
+                }
+            }
+
+            &:active {
+                color: #333;
+
+                .g-icon-image {
+                    @extend %g-icon-image-active;
+                }
+            }
+
+            .g-icon,
+            .text {
+                vertical-align: middle;
+            }
+        }
+
+        .post {
+            float: right;
+        }
+    }
+}
+
+.g-avatar-wall {
+    // &:after {
+    //     content: '';
+    //     background-color: #fff;
+    //     position: absolute;
+    //     right: 0;
+    //     top: 0;
+    //     bottom: 0;
+    //     width: 24px;
+    // }
+
+    li {
+        &.ng-enter {
+            -webkit-transition: all .5s ease-in;
+            opacity: 0;
+            // margin-left: -24px;
+            // -webkit-transform: scale(0) rotate(-720deg);
+        }
+
+        &.ng-enter-active {
+            opacity: 1;
+            // margin-left: 0;
+            // -webkit-transform: scale(1) rotate(0deg);
+        }
+    }
+}

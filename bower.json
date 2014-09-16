@@ -1,0 +1,20 @@
+{
+  "name": "package",
+  "version": "0.0.0",
+  "dependencies": {
+    "adonis": "~0.1.1",
+    "jquery": "~1.11.1",
+    "angular": "~1.2.20",
+    "angular-route": "~1.2.20",
+    "angular-animate": "~1.2.20",
+    "angular-bootstrap": "~0.11.0",
+    "WandouLabs-AccountJavaScriptSDK": "wandoulabs/Account-JavaScriptSDK#~1.1.5",
+    "ngInfiniteScroll": "~1.1.2",
+    "jquery-file-upload": "~9.6.0",
+    "bootstrap-sass-official": "~3.2.0",
+    "requirejs": "~2.1.14",
+    "jquery-autosize": "~1.18.9",
+    "lodash": "~2.4.1",
+    "requirejs-text": "~2.0.12"
+  }
+}
