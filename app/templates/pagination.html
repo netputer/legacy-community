@@ -1,0 +1,17 @@
+<div class="o-pagination-ctn" ng-show="maxPage && maxPage > 1">
+    <div ng-click="gotoPrev()"
+        class="o-pagination-arrow previous"
+        ng-class="{disable: current === 1}">上一页</div>
+    <div class="o-pagination-dot">·</div>
+    <div ng-click="gotoPage(page.num)"
+        ng-repeat="page in pages"
+        ng-class="{
+            'o-pagination-num': page.num !== 0,
+            'o-pagination-dot': page.num === 0,
+            'current': page.num === current}"
+        ng-bind="page.num === 0 ? '&middot;' : page.num"></div>
+    <div class="o-pagination-dot">·</div>
+    <div ng-click="gotoNext()"
+        class="o-pagination-arrow next"
+        ng-class="{disable: current === maxPage}">下一页</div>
+</div>

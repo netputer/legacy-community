@@ -1,0 +1,24 @@
+<div class="g-notifications">
+<ul class="w-cf" infinite-scroll="loadMoreNotifications()" infinite-scroll-disabled="busy || !hasMore" infinite-scroll-distance="0.2">
+        <li ng-repeat="notification in notifications" class="w-component-card w-component-card-hover" ng-click="showTopic(notification.topic_id)">
+            <div class="avatar">
+                <img class="g-avatar" src="/images/avatar-default.png" ng-src="{{ notification.comment.author.avatar }}">
+            </div>
+            <div class="info">
+                <div class="title">
+                    <span class="nickname w-wc">{{ notification.comment.author.nick }}</span>
+                    <span class="status">{{ notification.commentType === 'VOTE' ? '赞了你' : '回复了你' }}</span>
+                    <span class="time w-text-info">{{ notification.createdTime | relative }}</span>
+                </div>
+                <div class="content">
+                    <pre>{{ notification.comment.message }}</pre>
+                    <div class="parent w-wc">{{ notification.parentCommentContent }}</div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="pagination">
+        <div class="g-infinite-loading w-text-info" ng-show="busy">正在加载…</div>
+        <div class="g-infinite-end w-text-info" ng-hide="hasMore">没有更多通知了</div>
+    </div>
+</div>

@@ -1,5 +1,7 @@
 *.DS_store
 *.log
+*.sublime-project
+*.sublime-workspace
 
 /node_modules/
 /app/components

@@ -1,0 +1,21 @@
+<div class="g-list">
+    <ul class="w-cf" infinite-scroll="ctrl.loadMoreGroups()" infinite-scroll-disabled="ctrl.busy || !ctrl.hasMore" infinite-scroll-distance="0.2">
+        <li ng-repeat="group in ctrl.groups" ng-click="ctrl.redirectToGroup(group.id)">
+            <div class="card w-component-card w-component-card-hover">
+                <div class="cover">
+                    <img class="icon g-app-icon" ng-src="{{ group.icon.url }}">
+                    <h3 class="title w-wc">{{ group.title }}</h3>
+                    <div class="meta w-text-secondary">
+                        <span class="topic">话题 {{ group.totalTopicsCount }}</span>
+                        <span class="member">成员 {{ group.membersCount }}</span>
+                    </div>
+                </div>
+                <div class="slogon w-text-secondary">{{ group.slogan }}</div>
+            </div>
+        </li>
+    </ul>
+    <div class="pagination">
+        <div class="g-infinite-loading w-text-info" ng-show="ctrl.busy">正在加载…</div>
+        <div class="g-infinite-end w-text-info" ng-hide="ctrl.hasMore">没有更多小组了</div>
+    </div>
+</div>

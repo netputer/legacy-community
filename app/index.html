@@ -1,15 +1,49 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hello world!</title>
+        <title>豌豆荚游戏小组</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
-
-        <!-- build:js javascripts/main.js -->
-        <script type="text/javascript" src="javascripts/main.js"></script>
-        <!-- endbuild -->
+        <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+        <base href="/group/">
     </head>
     <body>
-        <h1>Hello world!</h1>
+        <div class="w-group-ctn">
+            <div class="g-header" ng-controller="AccountController as ctrl">
+                <div class="w-container">
+                    <div class="logo">
+                        <a ng-click="ctrl.gotoHome()">
+                            <img src="/images/logo.png" alt="豌豆荚游戏小组">
+                        </a>
+                    </div>
+                    <div class="guide">
+                        <span class="text" ng-if="!ctrl.isLoggedIn">
+                            <a ng-click="ctrl.showRegister()">注册豌豆荚账号</a>，立即加入你喜爱的游戏社区。
+                        </span>
+                    </div>
+                    <div ng-if="!ctrl.isLoggedIn" class="action action-login">
+                        <button class="w-btn w-btn-primary" ng-click="ctrl.showLogin()">登录</button>
+                    </div>
+                    <div ng-if="ctrl.isLoggedIn" class="action action-user dropdown dropdown-toggle">
+                        <span class="nick w-wc">{{ ctrl.user.nick }}</span>
+                        <div class="avatar" ng-class="{'new': ctrl.hasUnread}">
+                            <img class="g-avatar g-avatar-small" ng-src="{{ ctrl.user.avatar }}">
+                        </div>
+                        <ul class="dropdown-menu">
+                            <li><a ng-click="ctrl.showNotifications()">消息提醒</a></li>
+                            <li class="divider"></li>
+                            <li><a ng-click="ctrl.gotoUser()">个人中心</a></li>
+                            <li><a ng-click="ctrl.gotoSettings()">修改个人资料</a></li>
+                            <li><a ng-click="ctrl.showLogout()">退出登录</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="g-main">
+                <div class="w-container" ng-view></div>
+            </div>
+        </div>
+
+        <script data-main="/javascripts/main" src="/components/requirejs/require.js"></script>
     </body>
 </html>

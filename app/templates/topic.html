@@ -1,0 +1,124 @@
+<div class="g-topic w-component-card" cmty-parent-scroll="ctrl.onScroll(event)">
+    <div class="fixed" ng-show="ctrl.showFixed">
+        <div class="w-container">
+            <div class="author">
+                <div class="avatar">
+                    <img class="g-avatar g-avatar-large" src="/images/avatar-default.png" ng-src="{{ ctrl.topic.author.avatar }}">
+                </div>
+                <span class="name w-wxxxc">{{ ctrl.topic.author.nick }} <em ng-if="ctrl.topic.author.role === 'GROUP_ADMIN'" class="role g-role">组长</em></span>
+            </div>
+            <div class="action">
+                <button ng-if="ctrl.topic.curUserPermissions.indexOf('VOTE') > -1" class="w-btn" ng-disabled="ctrl.topic.isCurUserLiked" ng-click="ctrl.likeTopic()" ng-bind="ctrl.topic.isCurUserLiked ? '已赞' : '赞一个'"></button>
+                <button ng-if="ctrl.topic.curUserPermissions.indexOf('ADD_REPLY') > -1" class="w-btn w-btn-primary" ng-click="ctrl.scrollToEnd()">回复</button>
+            </div>
+        </div>
+    </div>
+    <div class="topic">
+        <div class="author w-cf">
+            <div class="avatar">
+                <img class="g-avatar g-avatar-large" ng-src="{{ ctrl.topic.author.avatar }}">
+            </div>
+            <div class="info">
+                <div class="nickname">
+                    <span class="name w-wc">{{ ctrl.topic.author.nick }} <em ng-if="ctrl.topic.author.role === 'GROUP_ADMIN'" class="role g-role">组长</em></span>
+                </div>
+                <div class="time w-text-info">{{ ctrl.topic.createdTime | relative }}</div>
+            </div>
+            <div class="action" ng-if="ctrl.topic.curUserPermissions.indexOf('DELETE') > -1 || ctrl.topic.curUserPermissions.indexOf('STICK') > -1">
+                <span class="g-icon-more-btn dropdown dropdown-toggle">
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li ng-if="ctrl.topic.curUserPermissions.indexOf('DELETE') > -1"><a ng-click="ctrl.deleteTopic()">删除</a></li>
+                        <li ng-if="ctrl.topic.curUserPermissions.indexOf('STICK') > -1"><a ng-click="ctrl.stickTopic(!ctrl.topic.isSticky)">{{ ctrl.topic.isSticky ? '取消置顶' : '置顶' }}</a></li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <pre class="content">{{ ctrl.topic.message }}</pre>
+        <div class="pics">
+            <ul>
+                <li ng-repeat="picture in ctrl.topic.pictures">
+                    <img ng-src="{{ picture.url }}" cmty-load="ctrl.pictureLoaded()">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="meta js-meta-bar">
+        <div class="meta-body">
+            <span class="g-icon g-icon-like"></span>
+            <ul class="g-avatar-wall">
+                <li ng-repeat="like in ctrl.likes">
+                    <img class="g-avatar g-avatar-small" ng-src="{{ like.avatar }}">
+                </li>
+            </ul>
+        </div>
+        <div class="meta-action">
+            <button ng-if="ctrl.topic.curUserPermissions.indexOf('VOTE') > -1" class="w-btn" ng-disabled="ctrl.topic.isCurUserLiked" ng-click="ctrl.likeTopic()" ng-bind="ctrl.topic.isCurUserLiked ? '已赞' : '赞一个'"></button>
+            <button ng-if="ctrl.topic.curUserPermissions.indexOf('ADD_REPLY') > -1" class="w-btn w-btn-primary" ng-click="ctrl.scrollToEnd()">回复</button>
+        </div>
+    </div>
+    <div class="replies">
+        <ul>
+            <li ng-repeat="reply in ctrl.replies" class="w-cf">
+                <div class="avatar">
+                    <img class="g-avatar g-avatar-small" ng-src="{{ reply.author.avatar }}">
+                </div>
+                <div class="info">
+                    <div class="nickname">
+                        <span class="nick">{{ reply.author.nick }} <em ng-if="reply.author.role === 'GROUP_ADMIN'" class="role g-role">组长</em></span>
+                        <span class="time w-text-info">{{ reply.createdTime | relative }}</span>
+                    </div>
+                    <div class="content">
+                        <div class="parent" ng-if="!!reply.parentReply">
+                            {{ reply.parentReply.status === 1 ? reply.parentReply.message : '该楼层已被删除（' + reply.parentReply.sequence + ' 楼）' }}
+                        </div>
+                        <pre>{{ reply.message }}</pre>
+                    </div>
+                    <div class="pics" ng-if="reply.picture.url">
+                        <img ng-src="{{ reply.picture.url }}">
+                    </div>
+                    <div class="action">
+                        <div class="comment" ng-if="ctrl.topic.curUserPermissions.indexOf('ADD_REPLY') > -1" ng-click="ctrl.replyComment(reply)">
+                            <span class="g-icon g-icon-comment"></span>
+                            <span class="text">回复</span>
+                        </div>
+                        <div class="delete" ng-if="reply.curUserPermissions.indexOf('DELETE') > -1" ng-click="ctrl.deleteComment(reply)">
+                            <span class="g-icon g-icon-delete"></span>
+                            <span class="text">删除</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="g-infinite-loading w-text-info" ng-show="ctrl.busy">正在加载…</div>
+        <div cmty-pagination size="ctrl.max" total="ctrl.totalCount" range="5" callback="ctrl.loadReplies(page, true)"></div>
+    </div>
+    <div class="publish w-cf" ng-if="ctrl.topic.curUserPermissions.indexOf('ADD_REPLY') > -1">
+        <div class="avatar">
+            <img class="g-avatar g-avatar-small" src="/images/avatar-default.png" ng-src="{{ ctrl.user.avatar }}">
+        </div>
+        <div class="info">
+            <div class="nickname">
+                {{ ctrl.user.nick }}
+                <span class="w-text-info" ng-show="!!ctrl.parentReply.id" ng-click="ctrl.parentReply = {}">{{ '回复「' + ctrl.parentReply.message + '」' }} &times;</span>
+            </div>
+            <form class="g-publish" ng-submit="ctrl.postComment()">
+                <div class="content">
+                    <textarea cmty-autosize class="w-input w-input-block" rows="2" ng-model="ctrl.message"></textarea>
+                    <ul class="pics" ng-show="ctrl.pictures.length">
+                        <li ng-repeat="pic in ctrl.pictures"><img ng-src="{{ pic && 'http://img.wdjimg.com/image/community/' + pic }}"></li>
+                    </ul>
+                </div>
+                <div class="action w-cf">
+                    <div class="upload">
+                        <span class="g-icon g-icon-image"></span>
+                        <span class="text">添加照片</span>
+                        <input cmty-upload upload-before="ctrl.uploadBefore()" upload-progress="ctrl.uploadProgress(e, data)" upload-done="ctrl.uploadDone(e, data)" upload-fail="ctrl.uploadFail(e, data);" type="file" name="image">
+                    </div>
+                    <div class="post">
+                        <button class="w-btn w-btn-primary" ng-disabled="!ctrl.message">回复</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

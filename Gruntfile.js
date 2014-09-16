@@ -9,7 +9,8 @@ module.exports = function (grunt) {
     require('time-grunt')(grunt);
 
     // load all grunt tasks
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    // require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    require('jit-grunt')(grunt);
 
     // configurable paths
     var pathConfig = {
@@ -63,6 +64,12 @@ module.exports = function (grunt) {
                     middleware: function (connect) {
                         return [
                             lrSnippet,
+                            require('connect-modrewrite')([
+                                '^/$ /group/ [R]',
+                                // '^/group/?([^.]*)$ http://127.0.0.1:9999/$1 [P]'
+                                '^/group/?([^.]*)$ /index.html [L]'
+                                // '^/(groups|topics/notifications)/?[^.]*$ /index.html [L]'
+                            ]),
                             mountFolder(connect, pathConfig.tmp),
                             mountFolder(connect, pathConfig.app)
                         ];
@@ -139,7 +146,11 @@ module.exports = function (grunt) {
                 sassDir: '<%= paths.app %>/compass/sass',
                 imagesDir: '<%= paths.app %>/compass/images',
                 fontsDir: '<%= paths.app %>/images/fonts',
-                relativeAssets: true
+                relativeAssets: true,
+                importPath: [
+                    // '<%= paths.app %>/components/adonis/app/compass/sass',
+                    // '<%= paths.app %>/components/Retina-sprites-for-Compass/src'
+                ]
             },
             dist: {
                 options: {
@@ -187,7 +198,7 @@ module.exports = function (grunt) {
                     optimize: 'uglify',
                     uglify: {
                         toplevel: true,
-                        ascii_only: false,
+                        ascii_only: false, // jshint ignore:line
                         beautify: false
                     },
                     preserveLicenseComments: true,
@@ -270,10 +281,10 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('serve', [
-        'concurrent:server',
+        // 'concurrent:server',
         'connect:server',
-        'karma:server',
-        'open',
+        // 'karma:server',
+        // 'open',
         'watch'
     ]);
 
