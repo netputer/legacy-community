@@ -2,7 +2,7 @@ define(function () {
     var GroupService = function ($http) {
         var API_ROOT = 'http://group.wandoujia.com/api/v1';
 
-        if (navigator.userAgent.indexOf('msie') > -1) {
+        if (navigator.userAgent.toLowerCase().indexOf('msie') > -1) {
             API_ROOT = 'http://www.wandoujia.com/api/group/v1';
         }
 
