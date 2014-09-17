@@ -20,6 +20,24 @@ define([
         scope.members = [];
         scope.blocks = [];
 
+        var removeMemberFromNormal = function (normalMember) {
+            var summaryIndex = _.findIndex(scope.membersSummary, function (member) {
+                return normalMember.uid === member.uid;
+            });
+
+            var membersIndex = _.findIndex(scope.members, function (member) {
+                return normalMember.uid === member.uid;
+            });
+
+            if (summaryIndex > -1) {
+                scope.membersSummary.splice(summaryIndex, 1);
+            }
+
+            if (membersIndex > -1) {
+               scope.members.splice(membersIndex, 1);
+            }
+        };
+
         scope.joinGroup = function () {
             AccountService.getUser().then(function (user) {
                 var userObj = {
@@ -43,21 +61,9 @@ define([
 
         scope.leaveGroup = function () {
             AccountService.getUser().then(function (user) {
-                var summaryIndex = _.findIndex(scope.membersSummary, function (member) {
-                    return member.uid === user.data.uid;
+                removeMemberFromNormal({
+                    uid: user.data.uid
                 });
-
-                var membersIndex = _.findIndex(scope.members, function (member) {
-                    return member.uid === user.data.uid;
-                });
-
-                if (summaryIndex > -1) {
-                    scope.membersSummary.splice(summaryIndex, 1);
-                }
-
-                if (membersIndex > -1) {
-                   scope.members.splice(membersIndex, 1);
-                }
 
                 scope.group.curUserRole = null;
             });
@@ -150,19 +156,6 @@ define([
             }).then(function (xhr) {
                 scope.blocks = xhr.data.items;
             });
-        };
-
-        var removeMemberFromNormal = function (member) {
-            var membersIndex = scope.members.indexOf(member);
-            var membersSummaryIndex = scope.membersSummary.indexOf(member);
-
-            if (membersIndex > -1) {
-                scope.members.splice(membersIndex, 1);
-            }
-
-            if (membersSummaryIndex > -1) {
-                scope.membersSummary.splice(membersSummaryIndex, 1);
-            }
         };
 
         scope.setAsAdmin = function (member) {
