@@ -10,7 +10,11 @@ module.exports = function (grunt) {
 
     // load all grunt tasks
     // require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-    require('jit-grunt')(grunt);
+    require('jit-grunt')(grunt, {
+        'bump-only': 'grunt-bump',
+        'bump-commit': 'grunt-bump',
+        'changelog': 'grunt-conventional-changelog'
+    });
 
     // configurable paths
     var pathConfig = {
