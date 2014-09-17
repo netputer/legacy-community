@@ -156,7 +156,7 @@ module.exports = function (grunt) {
                 options: {
                     cssDir: '<%= paths.dist %>/stylesheets',
                     generatedImagesDir: '<%= paths.tmp %>/images',
-                    httpGeneratedImagesPath: 'images/',
+                    httpGeneratedImagesPath: '../images/',
                     outputStyle: 'compressed',
                     environment: 'production',
                     relativeAssets: false
@@ -307,7 +307,7 @@ module.exports = function (grunt) {
         // // 'cssmin', // Uncomment this line if using none-sass style
         // // 'requirejs:dist', // Uncomment this line if using RequireJS in your project
         // 'rev',
-        // 'copy:compass',
+        'copy:compass',
         // 'imagemin',
         // 'usemin',
         // 'htmlmin'
