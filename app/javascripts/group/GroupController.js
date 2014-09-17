@@ -99,8 +99,11 @@ define([
             }).then(function (xhr) {
                 var items = xhr.data.items;
 
-                scope.topics = scope.topics.concat(items);
-                scope.afterId = items[items.length - 1].id;
+                if (items.length > 0) {
+                    scope.topics = scope.topics.concat(items);
+                    scope.afterId = items[items.length - 1].id;
+                }
+
                 scope.busy = false;
                 scope.hasMore = xhr.data.hasMore && items.length > 0;
             });
