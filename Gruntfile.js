@@ -147,11 +147,7 @@ module.exports = function (grunt) {
                 sassDir: '<%= paths.app %>/compass/sass',
                 imagesDir: '<%= paths.app %>/compass/images',
                 fontsDir: '<%= paths.app %>/images/fonts',
-                relativeAssets: true,
-                importPath: [
-                    // '<%= paths.app %>/components/adonis/app/compass/sass',
-                    // '<%= paths.app %>/components/Retina-sprites-for-Compass/src'
-                ]
+                relativeAssets: true
             },
             dist: {
                 options: {
