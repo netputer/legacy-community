@@ -99,13 +99,14 @@ img {
     .nick,
     .avatar {
         display: inline-block;
+        vertical-align: middle;
+        margin: 15px 0;
     }
 
     .nick {
         max-width: 12px * 6 + 1px;
         line-height: 24px;
         margin-right: 5px;
-        vertical-align: middle;
     }
 
     .avatar {
@@ -989,5 +990,19 @@ img {
         // margin-bottom: 5px;
         color: #999;
     }
+}
 
+.ie {
+    .g-header {
+        .nick,
+        .avatar {
+            margin: 15px 0;
+        }
+    }
+
+    .g-topic {
+        .fixed {
+            display: none;
+        }
+    }
 }
