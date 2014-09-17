@@ -152,61 +152,81 @@ define([
             });
         };
 
+        var removeMemberFromNormal = function (member) {
+            var membersIndex = scope.members.indexOf(member);
+            var membersSummaryIndex = scope.membersSummary.indexOf(member);
+
+            if (membersIndex > -1) {
+                scope.members.splice(membersIndex, 1);
+            }
+
+            if (membersSummaryIndex > -1) {
+                scope.membersSummary.splice(membersSummaryIndex, 1);
+            }
+        };
+
         scope.setAsAdmin = function (member) {
-            // scope.members.splice(scope.members.indexOf(member), 1);
-            // scope.admins.push(member);
-
-            // AccountService.getUser().then(function (user) {
-            //     if (member.uid === user.data.uid) {
-            //         scope.group.curUserRole = 'GROUP_ADMIN';
-            //     }
-            // });
-
             GroupService.updateGroupRole({
                 groupId: $routeParams.id,
                 uid: member.uid,
                 toRole: 'GROUP_ADMIN'
             }).then(function (xhr) {
-                console.log('set as admin', xhr.data);
+                removeMemberFromNormal(member);
+                scope.admins.push(member);
+
+                AccountService.getUser().then(function (user) {
+                    if (member.uid === user.data.uid) {
+                        scope.group.curUserRole = 'GROUP_ADMIN';
+                    }
+                });
             });
         };
 
         scope.setAsBlock = function (member) {
-            // scope.members.splice(scope.members.indexOf(member), 1);
-            // scope.blocks.push(member);
-
-            // AccountService.getUser().then(function (user) {
-            //     if (member.uid === user.data.uid) {
-            //         scope.group.curUserRole = 'GROUP_BLACKUSER';
-            //     }
-            // });
-
             GroupService.updateGroupRole({
                 groupId: $routeParams.id,
                 uid: member.uid,
                 toRole: 'GROUP_BLACKUSER'
             }).then(function (xhr) {
-                console.log('set as block', xhr.data);
+                removeMemberFromNormal(member);
+                scope.blocks.push(member);
+
+                AccountService.getUser().then(function (user) {
+                    if (member.uid === user.data.uid) {
+                        scope.group.curUserRole = 'GROUP_BLACKUSER';
+                    }
+                });
             });
         };
 
         scope.setAsNormal = function (member, from) {
-            console.log(member);
-            // if (from === 'GROUP_ADMIN') {
-            //     scope.admins.splice(scope.admins.indexOf(member), 1);
-            // } else {
-            //     scope.blocks.splice(scope.blocks.indexOf(member), 1);
-            // }
-
-            // scope.members.unshift(member);
-            // scope.membersSummary.unshift(member);
-
             GroupService.updateGroupRole({
                 groupId: $routeParams.id,
                 uid: member.uid,
                 toRole: 'GROUP_MEMBER'
             }).then(function (xhr) {
-                console.log('set as normal', xhr.data);
+                switch (from) {
+                case 'GROUP_ADMIN':
+                    var adminsIndex = scope.admins.indexOf(member);
+
+                    if (adminsIndex > -1) {
+                        scope.admins.splice(adminsIndex, 1);
+                    }
+
+                    break;
+
+                case 'GROUP_BLACKUSER':
+                    var blocksIndex = scope.blocks.indexOf(member);
+
+                    if (blocksIndex > -1) {
+                        scope.blocks.splice(blocksIndex, 1);
+                    }
+
+                    break;
+                }
+
+                scope.members.unshift(member);
+                scope.membersSummary.unshift(member);
             });
         };
 
