@@ -40,6 +40,7 @@ define([
         'cmtyTopic',
         'cmtyNotification'
     ]).config(function ($httpProvider, $locationProvider, $routeProvider) {
+        $httpProvider.defaults.withCredentials = true;
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
         $httpProvider.defaults.transformRequest.unshift(function (data, headersGetter) {
