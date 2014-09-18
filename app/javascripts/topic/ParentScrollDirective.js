@@ -12,6 +12,10 @@ define([
             link: function ($scope, $element, $attrs) {
                 var $scrollContainer = $('.modal-content');
 
+                if ($scrollContainer.length === 0) {
+                    $scrollContainer = $(document);
+                }
+
                 $scrollContainer.on('scroll', _.throttle(function (e) {
                     $scope.onScroll({
                         event: e
