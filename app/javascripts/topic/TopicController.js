@@ -20,6 +20,7 @@ define([
 
         var $scrollContainer;
         var $meta;
+        var $textarea;
         var totalPictures = 0;
         var loadedPictures = 0;
         var metaPosition;
@@ -61,10 +62,20 @@ define([
             metaPosition = getMetaPosition();
         }, 500);
 
+        var focusTextarea = function () {
+            if ($textarea === undefined) {
+                $textarea = $('.g-publish textarea');
+            }
+
+            $textarea.focus();
+        };
+
         scope.scrollToEnd = function () {
             $scrollContainer.animate({
                 scrollTop: scope.bottomPosition
             });
+
+            focusTextarea();
         };
 
         scope.likeTopic = function () {
@@ -165,9 +176,7 @@ define([
 
         scope.replyComment = function (reply) {
             scope.parentReply = reply;
-
-            // Scroll to reply box
-            // UX Notice: Make sure parentId correct
+            focusTextarea();
         };
 
         scope.deleteComment = function (reply) {
