@@ -221,7 +221,7 @@ define(function () {
                     method: 'GET',
                     url: API_ROOT + '/notifications/news_count',
                     params: {
-                        '_': Date.now()
+                        '_': new Date().getTime()
                     }
                 });
             }
