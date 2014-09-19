@@ -125,6 +125,10 @@ define(function () {
                     pictures = options.pictures.join(',');
                 }
 
+                if (pictures.length === 0) {
+                    pictures = undefined;
+                }
+
                 return $http({
                     method: 'POST',
                     url: API_ROOT + '/topics/add',
@@ -172,6 +176,10 @@ define(function () {
 
                 if (options.pictures instanceof Array) {
                     pictures = options.pictures.join(',');
+                }
+
+                if (pictures.length === 0) {
+                    pictures = undefined;
                 }
 
                 return $http({
