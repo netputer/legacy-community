@@ -44,7 +44,9 @@
                         <div class="content">{{ topic.message }}</div>
                         <div class="pics w-cf" ng-if="topic.pictures.length">
                             <ul>
-                                <li ng-repeat="picture in topic.pictures" class="pic" style="background-image:url({{ picture.url }})"></li>
+                                <li ng-repeat="picture in topic.pictures" class="pic">
+                                    <img ng-src="{{ picture.urlTemplate.replace('{width}', '120').replace('{height}', '120') }}">
+                                </li>
                             </ul>
                         </div>
                         <div class="status w-cf">
