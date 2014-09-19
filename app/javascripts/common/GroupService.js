@@ -211,7 +211,10 @@ define(function () {
 
                 return $http({
                     method: 'GET',
-                    url: API_ROOT + '/notifications/news_count'
+                    url: API_ROOT + '/notifications/news_count',
+                    params: {
+                        '_': Date.now()
+                    }
                 });
             }
         };
