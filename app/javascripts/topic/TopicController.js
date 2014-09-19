@@ -75,6 +75,7 @@ define([
                 scrollTop: scope.bottomPosition
             });
 
+            scope.parentReply = {};
             focusTextarea();
         };
 
