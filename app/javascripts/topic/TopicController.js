@@ -176,14 +176,12 @@ define([
         };
 
         scope.deleteComment = function (reply) {
-            var index = scope.replies.indexOf(reply);
-            scope.replies.splice(index, 1);
-
-            // GroupService.deleteComment({
-            //     replyId: reply.id
-            // }).then(function (xhr) {
-            //     console.log('deleteComment', xhr.data);
-            // });
+            GroupService.deleteComment({
+                replyId: reply.id
+            }).then(function (xhr) {
+                var index = scope.replies.indexOf(reply);
+                scope.replies.splice(index, 1);
+            });
         };
 
         scope.uploadBefore = function () {
