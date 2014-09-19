@@ -1,5 +1,5 @@
 define(function () {
-    var PostController = function ($scope, $routeParams, GroupService) {
+    var PostController = function ($scope, $routeParams, $location, GroupService) {
         var scope = this;
 
         scope.message = '';
@@ -55,12 +55,14 @@ define(function () {
                 message: scope.message,
                 pictures: scope.pictures
             }).then(function (xhr) {
-                console.log(xhr);
+                if (!!xhr.data.id) {
+                    $location.path('/' + $routeParams.id);
+                }
             });
         };
     };
 
-    PostController.$inject = ['$scope', '$routeParams', 'GroupService'];
+    PostController.$inject = ['$scope', '$routeParams', '$location', 'GroupService'];
 
     return PostController;
 });
