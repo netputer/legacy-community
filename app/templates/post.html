@@ -1,20 +1,20 @@
 <div class="g-post">
     <h4>发表话题</h4>
-    <form class="g-publish" ng-submit="postTopic()">
+    <form class="g-publish" ng-submit="ctrl.postTopic()">
         <div class="content">
-            <textarea cmty-autosize class="w-input w-input-block" rows="10" ng-model="message"></textarea>
-            <ul class="pics" ng-show="pictures.length">
-                <li ng-repeat="pic in pictures"><img ng-src="{{ pic && 'http://img.wdjimg.com/image/community/' + pic }}"></li>
+            <textarea cmty-autosize class="w-input w-input-block" rows="10" ng-model="ctrl.message"></textarea>
+            <ul class="pics" ng-show="ctrl.pictures.length">
+                <li ng-repeat="pic in ctrl.pictures"><img ng-src="{{ pic && 'http://img.wdjimg.com/image/community/' + pic }}"></li>
             </ul>
         </div>
         <div class="action w-cf">
             <div class="upload">
                 <span class="g-icon g-icon-image"></span>
                 <span class="text">添加照片</span>
-                <input cmty-upload upload-before="uploadBefore()" upload-progress="uploadProgress(e, data)" upload-done="uploadDone(e, data)" upload-fail="uploadFail(e, data);" type="file" name="image">
+                <input cmty-upload upload-before="ctrl.uploadBefore()" upload-progress="ctrl.uploadProgress(e, data)" upload-done="ctrl.uploadDone(e, data)" upload-fail="ctrl.uploadFail(e, data);" type="file" name="image">
             </div>
             <div class="post">
-                <button class="w-btn w-btn-primary w-btn-large" ng-disabled="!message">发表</button>
+                <button class="w-btn w-btn-primary w-btn-large" ng-disabled="!ctrl.message && ctrl.pictures.length === 0">发表</button>
             </div>
         </div>
     </form>
