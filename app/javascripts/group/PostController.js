@@ -40,6 +40,15 @@ define(function () {
             console.log('scope fail - data', data);
         };
 
+        scope.deletePicture = function (pic) {
+            var index = scope.pictures.indexOf(pic);
+            scope.pictures.splice(index, 1);
+
+            if (scope.pictures.length === 0 && scope.message === '我只发图不说话') {
+                scope.message = '';
+            }
+        };
+
         scope.postTopic = function () {
             GroupService.postTopic({
                 groupId: $routeParams.id,

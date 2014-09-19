@@ -105,7 +105,10 @@
                 <div class="content">
                     <textarea cmty-autosize class="w-input w-input-block" rows="2" ng-model="ctrl.message"></textarea>
                     <ul class="pics" ng-show="ctrl.pictures.length">
-                        <li ng-repeat="pic in ctrl.pictures"><img ng-src="{{ pic && 'http://img.wdjimg.com/image/community/' + pic }}"></li>
+                        <li ng-repeat="pic in ctrl.pictures">
+                            <img ng-src="{{ pic && 'http://img.wdjimg.com/image/community/' + pic }}">
+                            <span class="delete" ng-click="ctrl.deletePicture(pic)">删除</span>
+                        </li>
                     </ul>
                 </div>
                 <div class="action w-cf">
