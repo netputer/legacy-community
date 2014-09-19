@@ -72,7 +72,7 @@ define([
 
         scope.scrollToEnd = function () {
             $scrollContainer.animate({
-                scrollTop: scope.bottomPosition
+                scrollTop: $scrollContainer[0].scrollHeight
             });
 
             scope.parentReply = {};
