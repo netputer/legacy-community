@@ -155,17 +155,10 @@ define([
         };
 
         scope.postComment = function () {
-            // return console.log('pre po', {
-            //     topicId: topicId,
-            //     message: scope.message,
-            //     picture: scope.pictures,
-            //     parentId: scope.parentReply.id
-            // });
-
             GroupService.postComment({
                 topicId: topicId,
                 message: scope.message,
-                picture: scope.pictures,
+                pictures: scope.pictures,
                 parentId: scope.parentReply.id
             }).then(function (xhr) {
                 console.log('postComment', xhr.data);

@@ -180,7 +180,7 @@ define(function () {
                     data: {
                         'topic_id': options.topicId,
                         'message': options.message,
-                        'picture': undefined,
+                        'picture': pictures,
                         'parent_reply_id': options.parentId
                     }
                 });
