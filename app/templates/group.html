@@ -89,7 +89,7 @@
                                     <span class="nickname w-wc">{{ admin.nick }}</span>
                                     <span ng-if="ctrl.group.curUserPermissions.indexOf('DEL_GROUP_ADMIN') > -1" class="g-icon-setting-btn dropdown dropdown-toggle">
                                         <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a ng-click="ctrl.setAsNormal(admin, 'GROUP_ADMIN')">取消管理员</a></li>
+                                            <li><a ng-click="ctrl.setAsNormal(admin, 'GROUP_ADMIN')">免除组长</a></li>
                                         </ul>
                                     </span>
                                 </div>
@@ -110,7 +110,7 @@
                                     <span ng-if="ctrl.group.curUserPermissions.indexOf('ADD_GROUP_ADMIN') > -1 && ctrl.group.curUserPermissions.indexOf('ADD_GROUP_BLACKUSER') > -1" class="g-icon-setting-btn dropdown dropdown-toggle">
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <!-- <li><a ng-click="ctrl.setAsBlock(member)">加入黑名单</a></li> -->
-                                            <li><a ng-click="ctrl.setAsAdmin(member)">设为管理员</a></li>
+                                            <li><a ng-click="ctrl.setAsAdmin(member)">任命为组长</a></li>
                                         </ul>
                                     </span>
                                 </div>
