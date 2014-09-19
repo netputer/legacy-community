@@ -40,6 +40,26 @@ define([
         'cmtyTopic',
         'cmtyNotification'
     ]).config(function ($httpProvider, $locationProvider, $routeProvider) {
+        // jshint ignore:start
+        // Fix for IE8 (No `Array.prototype.indexOf`). Code from PrototypeJS.
+        Array.prototype.indexOf = Array.prototype.indexOf || function indexOf(item, i) {
+            if (this == null) throw new TypeError();
+            var array = Object(this), length = array.length >>> 0;
+            if (length === 0) return -1;
+            i = Number(i);
+            if (isNaN(i)) {
+                i = 0;
+            } else if (i !== 0 && isFinite(i)) {
+                i = (i > 0 ? 1 : -1) * Math.floor(Math.abs(i));
+            }
+            if (i > length) return -1;
+            var k = i >= 0 ? i : Math.max(length - Math.abs(i), 0);
+            for (; k < length; k++)
+                if (k in array && array[k] === item) return k;
+            return -1;
+        };
+        // jshint ignore:end
+
         $httpProvider.defaults.withCredentials = true;
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
