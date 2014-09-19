@@ -25,18 +25,20 @@ define([
         var loadedPictures = 0;
         var metaPosition;
 
-        var getBottomPosition = function () {
-            $scrollContainer = $('.modal-content');
-
-            if ($scrollContainer.length === 0) {
+        var getScrollContainer = function () {
+            if ($scrollContainer !== undefined) {
                 return;
             }
 
-            scope.bottomPosition = $scrollContainer[0].scrollHeight;
+            $scrollContainer = $('.modal-content');
+
+            if ($scrollContainer.length === 0) {
+                $scrollContainer = $('body');
+            }
         };
 
         var getMetaPosition = function () {
-            getBottomPosition();
+            getScrollContainer();
 
             $meta = $('.js-meta-bar');
             return $meta.position().top + $meta.outerHeight();
@@ -48,7 +50,7 @@ define([
             }
 
             $scope.$apply(function () {
-                scope.showFixed = e.target.scrollTop > metaPosition;
+                scope.showFixed = $scrollContainer.scrollTop() > metaPosition;
             });
         };
 
