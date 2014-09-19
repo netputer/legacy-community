@@ -209,6 +209,10 @@ define([
             if (result.code === 0) {
                 $scope.$apply(function () {
                     scope.pictures.push(result.msg);
+
+                    if (scope.message.length === 0) {
+                        scope.message = '我只发图不说话';
+                    }
                 });
             }
         };
