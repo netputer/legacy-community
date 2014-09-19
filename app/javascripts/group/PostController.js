@@ -37,6 +37,10 @@ define(function () {
         };
 
         scope.postTopic = function () {
+            if (scope.pictures.length > 0 && scope.message.length === 0) {
+                scope.message = '我只发图不说话';
+            }
+
             GroupService.postTopic({
                 groupId: $routeParams.id,
                 message: scope.message,
