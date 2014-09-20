@@ -5,7 +5,8 @@
                 <div class="avatar">
                     <img class="g-avatar g-avatar-large" src="images/avatar-default.png" ng-src="{{ ctrl.topic.author.avatar }}">
                 </div>
-                <span class="name w-wxxxc">{{ ctrl.topic.author.nick }} <em ng-if="ctrl.topic.author.role === 'GROUP_ADMIN'" class="role g-role">组长</em></span>
+                <span class="name g-nick">{{ ctrl.topic.author.nick }}</span>
+                <em ng-if="ctrl.topic.author.role === 'GROUP_ADMIN'" class="role g-role">组长</em>
             </div>
             <div class="action">
                 <button ng-if="ctrl.topic.curUserPermissions.indexOf('VOTE') > -1" class="w-btn" ng-disabled="ctrl.topic.isCurUserLiked" ng-click="ctrl.likeTopic()" ng-bind="ctrl.topic.isCurUserLiked ? '已赞' : '赞一个'"></button>
@@ -20,7 +21,8 @@
             </div>
             <div class="info">
                 <div class="nickname">
-                    <span class="name w-wc">{{ ctrl.topic.author.nick }} <em ng-if="ctrl.topic.author.role === 'GROUP_ADMIN'" class="role g-role">组长</em></span>
+                    <span class="name g-nick">{{ ctrl.topic.author.nick }}</span>
+                    <em ng-if="ctrl.topic.author.role === 'GROUP_ADMIN'" class="role g-role">组长</em>
                 </div>
                 <div class="time w-text-info">{{ ctrl.topic.createdTime | relative }}</div>
             </div>
@@ -64,7 +66,8 @@
                 </div>
                 <div class="info">
                     <div class="nickname">
-                        <span class="nick">{{ reply.author.nick }} <em ng-if="reply.author.role === 'GROUP_ADMIN'" class="role g-role">组长</em></span>
+                        <span class="nick g-nick">{{ reply.author.nick }}</span>
+                        <em ng-if="reply.author.role === 'GROUP_ADMIN'" class="role g-role">组长</em>
                         <span class="time w-text-info">{{ reply.createdTime | relative }}</span>
                     </div>
                     <div class="content">
@@ -98,8 +101,8 @@
         </div>
         <div class="info">
             <div class="nickname">
-                {{ ctrl.user.nick }}
-                <span class="w-text-info" ng-show="!!ctrl.parentReply.id" ng-click="ctrl.parentReply = {}">{{ '回复「' + ctrl.parentReply.message + '」' }} &times;</span>
+                <span class="nick g-nick">{{ ctrl.user.nick }}</span>
+                <span class="parent w-text-info" ng-show="!!ctrl.parentReply.id" ng-click="ctrl.parentReply = {}">{{ '回复「' + ctrl.parentReply.message + '」' }} &times;</span>
             </div>
             <form class="g-publish" ng-submit="ctrl.postComment()">
                 <div class="content">

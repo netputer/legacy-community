@@ -40,7 +40,7 @@
                         <img class="g-avatar" src="images/avatar-default.png" ng-src="{{ topic.author.avatar }}">
                     </div>
                     <div class="info">
-                        <div class="nickname w-wc">{{ topic.author.nick }}</div>
+                        <div class="nickname g-nick">{{ topic.author.nick }}</div>
                         <div class="content">{{ topic.message }}</div>
                         <div class="pics w-cf" ng-if="topic.pictures.length">
                             <ul>
@@ -60,7 +60,10 @@
                                     <span class="count">{{ topic.repliesCount }}</span>
                                 </div>
                             </div>
-                            <div class="last w-text-info">{{ topic.lastReplyAuthor ? topic.lastReplyAuthor.nick + ' 回复于' : '' }}{{ topic.updatedTime | relative }}</div>
+                            <div class="last w-text-info">
+                                <span class="nick g-nick">{{ topic.lastReplyAuthor.nick }}</span>
+                                <span class="time">{{ topic.lastReplyAuthor ? ' 回复于' : '' }}{{ topic.updatedTime | relative }}</span>
+                            </div>
                         </div>
                     </div>
                 </li>

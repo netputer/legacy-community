@@ -106,7 +106,6 @@ img {
     }
 
     .nick {
-        max-width: 12px * 6 + 1px;
         line-height: 24px;
         margin-right: 5px;
     }
@@ -463,6 +462,11 @@ img {
                 float: right;
                 color: #999;
                 margin-top: 6px;
+
+                .nick,
+                .time {
+                    vertical-align: middle;
+                }
             }
         }
 
@@ -613,8 +617,13 @@ img {
         .author {
             width: 100%;
 
-            .avatar {
+            .avatar,
+            .name {
                 display: inline-block;
+                vertical-align: middle;
+            }
+
+            .avatar {
                 margin-right: 10px;
             }
         }
@@ -655,12 +664,11 @@ img {
             .name,
             .role {
                 vertical-align: middle;
+                display: inline-block;
             }
 
             .name {
                 margin-right: 5px;
-                max-width: 60%;
-                display: inline-block;
                 color: #777;
                 font-size: 14px;
             }
@@ -850,10 +858,20 @@ img {
             margin-bottom: 10px;
         }
 
+        .nick,
+        .role,
+        .time {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
         .nick {
             color: #777;
             font-size: 14px;
-            margin-right: 5px;
+        }
+
+        .time {
+            margin-left: 5px;
         }
 
         .parent {
@@ -935,6 +953,16 @@ img {
             color: #333;
             margin-bottom: 10px;
         }
+
+        .nick,
+        .parent {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .parent {
+            cursor: pointer;
+        }
     }
 }
 
@@ -975,11 +1003,6 @@ img {
         vertical-align: middle;
         font-size: 14px;
         color: #777;
-    }
-
-    .nickname {
-        display: inline-block;
-        max-width: 14px * 6 + 1px;
     }
 
     .status {

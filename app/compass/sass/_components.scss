@@ -300,3 +300,10 @@
         }
     }
 }
+
+.g-nick {
+    @extend .w-wc;
+
+    display: inline-block;
+    max-width: 14px * 7 + 1px;
+}
