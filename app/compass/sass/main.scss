@@ -13,8 +13,11 @@ html,
 body {
     background-color: #f8f8f8;
     height: 100%;
-    // font-family: Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
-    font-family: Lantinghei SC;
+}
+
+body,
+pre {
+    font: 12px/1.5em "Georgia", "Lantinghei SC", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -22,7 +25,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 pre {
-    font: 12px/1.5em Arial, Helvetica, Microsoft Yahei, sans-serif;
     margin: 0;
 }
 
