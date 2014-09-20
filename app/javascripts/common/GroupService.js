@@ -219,10 +219,7 @@ define(function () {
 
                 return $http({
                     method: 'GET',
-                    url: API_ROOT + '/notifications/news_count',
-                    params: {
-                        '_': new Date().getTime()
-                    }
+                    url: API_ROOT + '/notifications/news_count'
                 });
             }
         };
