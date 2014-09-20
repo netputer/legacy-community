@@ -41,7 +41,7 @@ define([
         'cmtyNotification'
     ]).config(function ($httpProvider, $locationProvider, $routeProvider) {
         // jshint ignore:start
-        // Fix for IE8 (No `Array.prototype.indexOf`). Code from PrototypeJS.
+        // Fix: IE8 without `Array.prototype.indexOf`
         Array.prototype.indexOf = Array.prototype.indexOf || function indexOf(item, i) {
             if (this == null) throw new TypeError();
             var array = Object(this), length = array.length >>> 0;
@@ -60,9 +60,11 @@ define([
         };
         // jshint ignore:end
 
+        // Fix: CORS request without cookies
         $httpProvider.defaults.withCredentials = true;
-        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
+        // Fix: Angular POST without processing formdata
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
         $httpProvider.defaults.transformRequest.unshift(function (data, headersGetter) {
             var key;
             var result = [];
