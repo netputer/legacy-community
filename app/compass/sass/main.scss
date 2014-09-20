@@ -1040,3 +1040,11 @@ img {
         }
     }
 }
+
+.ie8 {
+    .g-publish .action .upload {
+        input {
+            -ms-filter: 'alpha(opacity=0)';
+        }
+    }
+}
