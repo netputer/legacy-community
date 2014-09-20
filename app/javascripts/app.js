@@ -63,10 +63,6 @@ define([
         // Fix: CORS request without cookies
         $httpProvider.defaults.withCredentials = true;
 
-        // Fix: IE caches AJAX request
-        $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
-        $httpProvider.defaults.headers.common.Pragma = 'no-cache';
-
         // Fix: Angular POST without processing formdata
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
         $httpProvider.defaults.transformRequest.unshift(function (data, headersGetter) {
