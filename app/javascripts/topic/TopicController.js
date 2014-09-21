@@ -21,7 +21,6 @@ define([
         var $scrollContainer;
         var $meta;
         var $textarea;
-        var totalPictures = 0;
         var loadedPictures = 0;
         var metaPosition;
 
@@ -239,13 +238,6 @@ define([
             var topic = xhr.data;
 
             scope.topic = topic;
-
-            if (topic.pictures.length > 0) {
-                totalPictures = topic.pictures.length;
-            }
-
-            // if has image then listen to those image load event
-            // else timeout and then get its position
 
             $timeout(function () {
                 metaPosition = getMetaPosition();
