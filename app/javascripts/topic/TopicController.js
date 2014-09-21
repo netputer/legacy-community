@@ -40,7 +40,7 @@ define([
             getScrollContainer();
 
             $meta = $('.js-meta-bar');
-            return $meta.position().top + $meta.outerHeight();
+            return $meta.offset().top + $meta.outerHeight();
         };
 
         scope.onScroll = function (e) {
