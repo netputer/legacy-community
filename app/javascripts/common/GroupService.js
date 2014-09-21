@@ -1,4 +1,5 @@
 define(function () {
+    // @ngInject
     var GroupService = function ($http) {
         var API_ROOT = 'http://group.wandoujia.com/api/v1';
 
@@ -227,8 +228,6 @@ define(function () {
             }
         };
     };
-
-    GroupService.$inject = ['$http'];
 
     return GroupService;
 });

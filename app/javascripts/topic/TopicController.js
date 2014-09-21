@@ -5,6 +5,7 @@ define([
     $,
     _
 ) {
+    // @ngInject
     var TopicController = function ($scope, $rootScope, $routeParams, $location, GroupService, $timeout, AccountService) {
         var scope = this;
         var topicId = $rootScope.modalTopicId || $routeParams.id;
@@ -268,8 +269,6 @@ define([
             scope.user = user.data;
         });
     };
-
-    TopicController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'GroupService', '$timeout', 'AccountService'];
 
     return TopicController;
 });

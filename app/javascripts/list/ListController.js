@@ -1,4 +1,5 @@
 define(function () {
+    // @ngInject
     var ListController = function ($scope, $location, GroupService) {
         var scope = this;
 
@@ -31,8 +32,6 @@ define(function () {
 
         scope.loadMoreGroups();
     };
-
-    ListController.$inject = ['$scope', '$location', 'GroupService'];
 
     return ListController;
 });

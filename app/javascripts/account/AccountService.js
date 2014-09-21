@@ -3,6 +3,7 @@ define([
 ], function (
     account
 ) {
+    // @ngInject
     var AccountServices = function ($q) {
         var userDeferred = $q.defer();
         $q.when(account.checkAsync()).then(userDeferred.resolve);
@@ -16,8 +17,6 @@ define([
             }
         };
     };
-
-    AccountServices.$inject = ['$q'];
 
     return AccountServices;
 });

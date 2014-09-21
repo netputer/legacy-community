@@ -1,4 +1,5 @@
 define(function () {
+    // @ngInject
     var ModalContentDirective = function ($window) {
         return {
             restrict: 'C',
@@ -7,8 +8,6 @@ define(function () {
             }
         };
     };
-
-    ModalContentDirective.$inject = ['$window'];
 
     return ModalContentDirective;
 });

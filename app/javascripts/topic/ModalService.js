@@ -3,6 +3,7 @@ define([
 ], function (
     topicTemplate
 ) {
+    // @ngInject
     var ModalService = function ($modal, $rootScope, $location, $route, $window) {
         return {
             show: function (topicId) {
@@ -45,8 +46,6 @@ define([
             }
         };
     };
-
-    ModalService.$inject = ['$modal', '$rootScope', '$location', '$route', '$window'];
 
     return ModalService;
 });

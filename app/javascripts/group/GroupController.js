@@ -3,6 +3,7 @@ define([
 ], function (
     _
 ) {
+    // @ngInject
     var GroupController = function ($scope, $location, $routeParams, GroupService, AccountService, ModalService) {
         var scope = this;
 
@@ -235,8 +236,6 @@ define([
         scope.showMemberAdmins();
         // scope.showMemberBlocks();
     };
-
-    GroupController.$inject = ['$scope', '$location', '$routeParams', 'GroupService', 'AccountService', 'ModalService'];
 
     return GroupController;
 });

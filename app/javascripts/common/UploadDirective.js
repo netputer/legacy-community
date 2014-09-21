@@ -1,4 +1,5 @@
 define(function () {
+    // @ngInject
     var UploadDirective = function (UploadService) {
         return {
             restrict: 'A',
@@ -38,8 +39,6 @@ define(function () {
             }
         };
     };
-
-    UploadDirective.$inject = ['UploadService'];
 
     return UploadDirective;
 });

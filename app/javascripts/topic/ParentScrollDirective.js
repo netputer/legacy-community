@@ -3,6 +3,7 @@ define([
 ], function (
     _
 ) {
+    // @ngInject
     var ParentScrollDirective = function () {
         return {
             restrict: 'A',

@@ -1,4 +1,5 @@
 define(function () {
+    // @ngInject
     var AccountController = function ($scope, $window, $location, AccountService, GroupService, $timeout) {
         var scope = this;
         scope.isLoggedIn = false;
@@ -61,8 +62,6 @@ define(function () {
 
         getUnreadNotificationsCount();
     };
-
-    AccountController.$inject = ['$scope', '$window', '$location', 'AccountService', 'GroupService', '$timeout'];
 
     return AccountController;
 });

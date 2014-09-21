@@ -3,6 +3,7 @@ define([
 ],function (
     paginationTemplate
 ) {
+    // @ngInject
     var PaginationDirective = function () {
         return {
             restrict: 'A',
@@ -13,11 +14,11 @@ define([
                 range: '=',
                 callback: '&'
             },
-            link: function ($scope, $element, $attrs) {
+            link: function ($scope, $element) {
                 $element.attr('unselectable', 'on')
                         .on('selectstart', false);
             },
-            controller: function ($scope, $element, $attrs) {
+            controller: ['$scope', function ($scope) {
                 $scope.current = 1;
 
                 $scope.gotoPrev = function () {
@@ -127,7 +128,7 @@ define([
 
                 $scope.$watch('current', $scope.getPages);
                 $scope.$watch('total', $scope.getPages);
-            }
+            }]
         };
     };
 

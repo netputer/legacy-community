@@ -1,4 +1,5 @@
 define(function () {
+    // @ngInject
     var RelativeFilter = function () {
         return function (timestamp) {
             var dateTarget = new Date(timestamp);

@@ -1,4 +1,5 @@
 define(function () {
+    // @ngInject
     var PostController = function ($scope, $routeParams, $location, GroupService) {
         var scope = this;
 
@@ -71,8 +72,6 @@ define(function () {
             scope.name = xhr.data.title;
         });
     };
-
-    PostController.$inject = ['$scope', '$routeParams', '$location', 'GroupService'];
 
     return PostController;
 });

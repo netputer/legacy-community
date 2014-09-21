@@ -1,4 +1,5 @@
 define(function () {
+    // @ngInject
     var LoadDirective = function ($parse) {
         return {
             restrict: 'A',
@@ -18,8 +19,6 @@ define(function () {
             }
         };
     };
-
-    LoadDirective.$inject = ['$parse'];
 
     return LoadDirective;
 });
