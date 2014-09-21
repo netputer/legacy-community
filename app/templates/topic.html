@@ -1,3 +1,18 @@
+<div class="g-topic-group w-component-card w-cf" ng-if="ctrl.topic.group.id">
+    <div class="icon">
+        <img class="g-app-icon" src="images/avatar-default.png" ng-src="{{ ctrl.group.icon.url }}" cmty-load="ctrl.pictureLoaded()">
+    </div>
+    <div class="info">
+        <h3>{{ ctrl.group.title }}</h3>
+        <div class="w-text-secondary">
+            <span class="topic">话题 {{ ctrl.group.totalTopicsCount }}</span>
+            <span class="member">成员 {{ ctrl.group.membersCount }}</span>
+        </div>
+    </div>
+    <div class="action">
+        <button class="w-btn w-btn-primary g-no-animate" ng-click="ctrl.returnGroup()">回到小组</button>
+    </div>
+</div>
 <div class="g-topic w-component-card" cmty-parent-scroll="ctrl.onScroll(event)">
     <div class="fixed" ng-show="ctrl.showFixed">
         <div class="w-container">

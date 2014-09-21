@@ -5,7 +5,7 @@ define([
     $,
     _
 ) {
-    var TopicController = function ($scope, $rootScope, $routeParams, GroupService, $timeout, AccountService) {
+    var TopicController = function ($scope, $rootScope, $routeParams, $location, GroupService, $timeout, AccountService) {
         var scope = this;
         var topicId = $rootScope.modalTopicId || $routeParams.id;
         $rootScope.modalTopicId = undefined;
@@ -78,6 +78,10 @@ define([
 
             scope.parentReply = {};
             focusTextarea();
+        };
+
+        scope.returnGroup = function () {
+            $location.path('/' + scope.topic.group.id);
         };
 
         scope.likeTopic = function () {
@@ -239,6 +243,12 @@ define([
 
             scope.topic = topic;
 
+            GroupService.getGroupDetail({
+                groupId: topic.group.id
+            }).then(function (xhr) {
+                scope.group = xhr.data;
+            });
+
             $timeout(function () {
                 metaPosition = getMetaPosition();
             });
@@ -259,7 +269,7 @@ define([
         });
     };
 
-    TopicController.$inject = ['$scope', '$rootScope', '$routeParams', 'GroupService', '$timeout', 'AccountService'];
+    TopicController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'GroupService', '$timeout', 'AccountService'];
 
     return TopicController;
 });
