@@ -155,6 +155,10 @@ define([
         };
 
         scope.postComment = function () {
+            if (!scope.topic.group.curUserRole && !confirm('需要加入小组才能发表回复话题，确认加入小组？')) {
+                return;
+            }
+
             GroupService.postComment({
                 topicId: topicId,
                 message: scope.message,
