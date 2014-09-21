@@ -37,7 +37,7 @@
                     <div ng-if="!ctrl.isLoggedIn" class="action action-login">
                         <button class="w-btn w-btn-primary" ng-click="ctrl.showLogin()">登录</button>
                     </div>
-                    <div ng-if="ctrl.isLoggedIn" class="action action-user dropdown dropdown-toggle">
+                    <div ng-if="ctrl.isLoggedIn" class="action action-user dropdown dropdown-toggle" ng-cloak>
                         <span class="nick g-nick">{{ ctrl.user.nick }}</span>
                         <div class="avatar" ng-class="{'new': ctrl.hasUnread}">
                             <img class="g-avatar g-avatar-small" ng-src="{{ ctrl.user.avatar }}">

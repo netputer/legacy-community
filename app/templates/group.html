@@ -11,7 +11,7 @@
                     <span class="member">成员 {{ ctrl.group.membersCount }}</span>
                 </div>
             </div>
-            <div class="action">
+            <div class="action" ng-cloak>
                 <button ng-if="!ctrl.group.curUserRole" class="w-btn w-btn-primary g-no-animate" ng-click="ctrl.joinGroup()">加入小组</button>
                 <button ng-if="!!ctrl.group.curUserRole && ctrl.group.curUserPermissions.indexOf('ADD_TOPIC') > -1" class="w-btn w-btn-primary g-no-animate" ng-click="ctrl.postTopic()">发表话题</button>
             </div>
