@@ -60,6 +60,12 @@ define(function () {
                 }
             });
         };
+
+        GroupService.getGroupDetail({
+            groupId: $routeParams.id
+        }).then(function (xhr) {
+            scope.name = xhr.data.title;
+        });
     };
 
     PostController.$inject = ['$scope', '$routeParams', '$location', 'GroupService'];
