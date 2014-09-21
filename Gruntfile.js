@@ -277,11 +277,33 @@ module.exports = function (grunt) {
             dist: {
                 src: ['<%= paths.dist %>/**/*.html', '<%= paths.dist %>/**/*.css'],
             }
+        },
+        ngAnnotate: {
+            options: {
+                singleQuotes: true,
+            },
+            tmp: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= paths.app %>/javascripts',
+                    src: '**/*.js',
+                    dest: '<%= paths.tmp %>/javascripts'
+                }],
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= paths.app %>/javascripts',
+                    src: '**/*.js',
+                    dest: '<%= paths.dist %>/javascripts'
+                }],
+            }
         }
     });
 
     grunt.registerTask('serve', [
         'concurrent:server',
+        'ngAnnotate:tmp',
         'connect:server',
         // 'karma:server',
         // 'open',
