@@ -17,6 +17,7 @@
                 <input cmty-upload upload-before="ctrl.uploadBefore()" upload-progress="ctrl.uploadProgress(e, data)" upload-done="ctrl.uploadDone(e, data)" upload-fail="ctrl.uploadFail(e, data);" type="file" name="image">
             </div>
             <div class="post">
+                <a class="return" ng-click="ctrl.gotoGroup()">取消</a>
                 <button class="w-btn w-btn-primary w-btn-large" ng-disabled="!ctrl.message">发表</button>
             </div>
         </div>

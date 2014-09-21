@@ -9,6 +9,10 @@ define(function () {
         //     '60b7e8e9c5d4e572662536afc4e26dc8_596_441.jpeg'
         // ];
 
+        scope.gotoGroup = function () {
+            $location.path('/' + $routeParams.id);
+        };
+
         scope.uploadBefore = function () {
             console.log('scope before');
         };
