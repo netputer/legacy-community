@@ -120,6 +120,7 @@ define([
                     topicId: topicId
                 }).then(function (xhr) {
                     console.log(xhr.data);
+                    scope.returnGroup();
                 });
             }
         };
