@@ -11,7 +11,7 @@
             </ul>
         </div>
         <div class="action w-cf">
-            <div class="upload">
+            <div class="upload" ng-if="ctrl.pictures.length < 9">
                 <span class="g-icon g-icon-image"></span>
                 <span class="text">添加照片</span>
                 <input cmty-upload upload-before="ctrl.uploadBefore()" upload-progress="ctrl.uploadProgress(e, data)" upload-done="ctrl.uploadDone(e, data)" upload-fail="ctrl.uploadFail(e, data);" type="file" name="image">
