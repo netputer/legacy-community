@@ -188,17 +188,25 @@ module.exports = function (grunt) {
             }
         },
         requirejs: {
+            options: {
+                appDir: ['<%= paths.app %>/javascripts'],
+                dir: ['<%= paths.tmp %>/javascripts'],
+                baseUrl: './',
+                mainConfigFile: ['<%= paths.app %>/javascripts/main.js'],
+                optimize: 'none',
+                removeCombined: true,
+                wrap: true
+            },
             dist: {
                 options: {
-                    optimize: 'uglify',
-                    uglify: {
-                        toplevel: true,
-                        ascii_only: false, // jshint ignore:line
-                        beautify: false
-                    },
-                    preserveLicenseComments: true,
-                    useStrict: false,
-                    wrap: true
+                    modules: [{
+                        name: 'main'
+                    }],
+                    almond: true,
+                    replaceRequireScript: [{
+                        files: ['<%= paths.tmp %>/index.html'],
+                        module: 'main'
+                    }]
                 }
             }
         },
