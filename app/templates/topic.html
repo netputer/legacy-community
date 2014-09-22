@@ -121,7 +121,7 @@
             </div>
             <form class="g-publish" ng-submit="ctrl.postComment()">
                 <div class="content">
-                    <textarea cmty-autosize class="w-input w-input-block" rows="2" ng-model="ctrl.message"></textarea>
+                    <textarea cmty-autosize class="w-input w-input-block" rows="2" ng-model="ctrl.message" placeholder="{{ ctrl.placeholder }}"></textarea>
                     <ul class="pics" ng-show="ctrl.pictures.length">
                         <li ng-repeat="pic in ctrl.pictures">
                             <img ng-src="{{ pic && 'http://img.wdjimg.com/image/community/' + pic }}">
@@ -136,7 +136,7 @@
                         <input cmty-upload upload-before="ctrl.uploadBefore()" upload-progress="ctrl.uploadProgress(e, data)" upload-done="ctrl.uploadDone(e, data)" upload-fail="ctrl.uploadFail(e, data);" type="file" name="image">
                     </div>
                     <div class="post">
-                        <button class="w-btn w-btn-primary" ng-disabled="!ctrl.message">回复</button>
+                        <button class="w-btn w-btn-primary" ng-disabled="!ctrl.message && ctrl.pictures.length === 0">回复</button>
                     </div>
                 </div>
             </form>

@@ -164,9 +164,15 @@ define([
                 return;
             }
 
+            var message = scope.message;
+
+            if (!message && scope.pictures.length > 0) {
+                message = '我只发图不说话';
+            }
+
             GroupService.postComment({
                 topicId: topicId,
-                message: scope.message,
+                message: message,
                 pictures: scope.pictures,
                 parentId: scope.parentReply.id
             }).then(function (xhr) {
@@ -216,10 +222,7 @@ define([
             if (result.code === 0) {
                 $scope.$apply(function () {
                     scope.pictures.push(result.msg);
-
-                    if (scope.message.length === 0) {
-                        scope.message = '我只发图不说话';
-                    }
+                    scope.placeholder = '我只发图不说话';
                 });
             }
         };
@@ -233,8 +236,8 @@ define([
             var index = scope.pictures.indexOf(pic);
             scope.pictures.splice(index, 1);
 
-            if (scope.pictures.length === 0 && scope.message === '我只发图不说话') {
-                scope.message = '';
+            if (scope.pictures.length === 0) {
+                scope.placeholder = '';
             }
         };
 

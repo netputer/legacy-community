@@ -32,10 +32,7 @@ define(function () {
             if (result.code === 0) {
                 $scope.$apply(function () {
                     scope.pictures.push(result.msg);
-
-                    if (scope.message.length === 0) {
-                        scope.message = '我只发图不说话';
-                    }
+                    scope.placeholder = '我只发图不说话';
                 });
             }
         };
@@ -49,15 +46,21 @@ define(function () {
             var index = scope.pictures.indexOf(pic);
             scope.pictures.splice(index, 1);
 
-            if (scope.pictures.length === 0 && scope.message === '我只发图不说话') {
-                scope.message = '';
+            if (scope.pictures.length === 0) {
+                scope.placeholder = '';
             }
         };
 
         scope.postTopic = function () {
+            var message = scope.message;
+
+            if (!message && scope.pictures.length > 0) {
+                message = '我只发图不说话';
+            }
+
             GroupService.postTopic({
                 groupId: $routeParams.id,
-                message: scope.message,
+                message: message,
                 pictures: scope.pictures
             }).then(function (xhr) {
                 if (!!xhr.data.id) {

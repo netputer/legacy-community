@@ -2,7 +2,7 @@
     <h4>{{ ctrl.name ? '在 ' + ctrl.name + ' 小组' : '' }}发表话题</h4>
     <form class="g-publish" ng-submit="ctrl.postTopic()">
         <div class="content">
-            <textarea cmty-autosize class="w-input w-input-block" rows="10" ng-model="ctrl.message"></textarea>
+            <textarea cmty-autosize class="w-input w-input-block" rows="10" ng-model="ctrl.message" placeholder="{{ ctrl.placeholder }}"></textarea>
             <ul class="pics" ng-show="ctrl.pictures.length">
                 <li ng-repeat="pic in ctrl.pictures">
                     <img ng-src="{{ pic && 'http://img.wdjimg.com/image/community/' + pic }}">
@@ -18,7 +18,7 @@
             </div>
             <div class="post">
                 <a class="return" ng-click="ctrl.gotoGroup()">取消</a>
-                <button class="w-btn w-btn-primary w-btn-large" ng-disabled="!ctrl.message">发表</button>
+                <button class="w-btn w-btn-primary w-btn-large" ng-disabled="!ctrl.message && ctrl.pictures.length === 0">发表</button>
             </div>
         </div>
     </form>
