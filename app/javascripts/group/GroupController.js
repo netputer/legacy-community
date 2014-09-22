@@ -41,22 +41,20 @@ define([
 
         scope.joinGroup = function () {
             AccountService.getUser().then(function (user) {
-                var userObj = {
-                    avatar: user.data.avatar,
-                    nick: user.data.nick,
-                    uid: user.data.uid
-                };
+                GroupService.joinGroup({
+                    groupId: $routeParams.id
+                }).then(function (xhr) {
+                    var userObj = {
+                        avatar: user.data.avatar,
+                        nick: user.data.nick,
+                        uid: user.data.uid
+                    };
 
-                scope.membersSummary.unshift(userObj);
-                scope.members.unshift(userObj);
+                    scope.membersSummary.unshift(userObj);
+                    scope.members.unshift(userObj);
 
-                scope.group.curUserRole = 'GROUP_MEMBER';
-            });
-
-            GroupService.joinGroup({
-                groupId: $routeParams.id
-            }).then(function (xhr) {
-                console.log('join', xhr.data);
+                    scope.group.curUserRole = 'GROUP_MEMBER';
+                });
             });
         };
 
