@@ -11,7 +11,7 @@
                     <span class="member">成员 {{ ctrl.group.membersCount }}</span>
                 </div>
             </div>
-            <div class="action">
+            <div class="action" ng-cloak>
                 <button ng-if="!ctrl.group.curUserRole" class="w-btn w-btn-primary g-no-animate" ng-click="ctrl.joinGroup()">加入小组</button>
                 <button ng-if="!!ctrl.group.curUserRole && ctrl.group.curUserPermissions.indexOf('ADD_TOPIC') > -1" class="w-btn w-btn-primary g-no-animate" ng-click="ctrl.postTopic()">发表话题</button>
             </div>
@@ -40,11 +40,13 @@
                         <img class="g-avatar" src="images/avatar-default.png" ng-src="{{ topic.author.avatar }}">
                     </div>
                     <div class="info">
-                        <div class="nickname w-wc">{{ topic.author.nick }}</div>
+                        <div class="nickname g-nick">{{ topic.author.nick }}</div>
                         <div class="content">{{ topic.message }}</div>
                         <div class="pics w-cf" ng-if="topic.pictures.length">
                             <ul>
-                                <li ng-repeat="picture in topic.pictures" class="pic" style="background-image:url({{ picture.url }})"></li>
+                                <li ng-repeat="picture in topic.pictures" class="pic">
+                                    <img ng-src="{{ picture.urlTemplate.replace('{width}', '120').replace('{height}', '120') }}">
+                                </li>
                             </ul>
                         </div>
                         <div class="status w-cf">
@@ -58,7 +60,10 @@
                                     <span class="count">{{ topic.repliesCount }}</span>
                                 </div>
                             </div>
-                            <div class="last w-text-info">{{ topic.lastReplyAuthor ? topic.lastReplyAuthor.nick + ' 回复于' : '' }}{{ topic.updatedTime | relative }}</div>
+                            <div class="last w-text-info">
+                                <span class="nick g-nick">{{ topic.lastReplyAuthor.nick }}</span>
+                                <span class="time">{{ topic.lastReplyAuthor ? ' 回复于' : '' }}{{ topic.updatedTime | relative }}</span>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -89,7 +94,7 @@
                                     <span class="nickname w-wc">{{ admin.nick }}</span>
                                     <span ng-if="ctrl.group.curUserPermissions.indexOf('DEL_GROUP_ADMIN') > -1" class="g-icon-setting-btn dropdown dropdown-toggle">
                                         <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a ng-click="ctrl.setAsNormal(admin)">取消管理员</a></li>
+                                            <li><a ng-click="ctrl.setAsNormal(admin, 'GROUP_ADMIN')">免除组长</a></li>
                                         </ul>
                                     </span>
                                 </div>
@@ -110,7 +115,7 @@
                                     <span ng-if="ctrl.group.curUserPermissions.indexOf('ADD_GROUP_ADMIN') > -1 && ctrl.group.curUserPermissions.indexOf('ADD_GROUP_BLACKUSER') > -1" class="g-icon-setting-btn dropdown dropdown-toggle">
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <!-- <li><a ng-click="ctrl.setAsBlock(member)">加入黑名单</a></li> -->
-                                            <li><a ng-click="ctrl.setAsAdmin(member)">设为管理员</a></li>
+                                            <li><a ng-click="ctrl.setAsAdmin(member)">任命为组长</a></li>
                                         </ul>
                                     </span>
                                 </div>

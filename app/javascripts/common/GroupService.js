@@ -1,6 +1,11 @@
 define(function () {
+    // @ngInject
     var GroupService = function ($http) {
         var API_ROOT = 'http://group.wandoujia.com/api/v1';
+
+        if (navigator.userAgent.toLowerCase().indexOf('msie') > -1) {
+            API_ROOT = 'http://www.wandoujia.com/api/group/v1';
+        }
 
         return {
             getGroupList: function (options) {
@@ -121,6 +126,10 @@ define(function () {
                     pictures = options.pictures.join(',');
                 }
 
+                if (pictures.length === 0) {
+                    pictures = undefined;
+                }
+
                 return $http({
                     method: 'POST',
                     url: API_ROOT + '/topics/add',
@@ -170,13 +179,17 @@ define(function () {
                     pictures = options.pictures.join(',');
                 }
 
+                if (pictures.length === 0) {
+                    pictures = undefined;
+                }
+
                 return $http({
                     method: 'POST',
                     url: API_ROOT + '/replies/add',
                     data: {
                         'topic_id': options.topicId,
                         'message': options.message,
-                        'picture': undefined,
+                        'picture': pictures,
                         'parent_reply_id': options.parentId
                     }
                 });
@@ -207,13 +220,14 @@ define(function () {
 
                 return $http({
                     method: 'GET',
-                    url: API_ROOT + '/notifications/news_count'
+                    url: API_ROOT + '/notifications/news_count',
+                    params: {
+                        '_': new Date().getTime()
+                    }
                 });
             }
         };
     };
-
-    GroupService.$inject = ['$http'];
 
     return GroupService;
 });

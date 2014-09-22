@@ -9,12 +9,24 @@
 @import "components";
 @import "icons/*.png";
 
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+    display: none !important;
+}
+
 html,
 body {
     background-color: #f8f8f8;
     height: 100%;
-    // font-family: Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
-    font-family: Lantinghei SC;
+}
+
+body,
+pre {
+    font: 12px/1.5em "Georgia", "Lantinghei SC", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -22,7 +34,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 pre {
-    font: 12px/1.5em Arial, Helvetica, Microsoft Yahei, sans-serif;
     margin: 0;
 }
 
@@ -99,13 +110,13 @@ img {
     .nick,
     .avatar {
         display: inline-block;
+        vertical-align: middle;
+        margin: 15px 0;
     }
 
     .nick {
-        max-width: 12px * 6 + 1px;
         line-height: 24px;
         margin-right: 5px;
-        vertical-align: middle;
     }
 
     .avatar {
@@ -422,12 +433,13 @@ img {
 
                 .pic {
                     float: left;
-                    background-size: cover;
-                    background-position: center center;
-                    width: 120px;
-                    height: 120px;
                     margin: 0 5px 5px 0;
                     padding: 0;
+
+                    img {
+                        width: 120px;
+                        height: 120px;
+                    }
                 }
             }
 
@@ -459,6 +471,11 @@ img {
                 float: right;
                 color: #999;
                 margin-top: 6px;
+
+                .nick,
+                .time {
+                    vertical-align: middle;
+                }
             }
         }
 
@@ -570,6 +587,71 @@ img {
         overflow-x: hidden;
         overflow-y: scroll;
     }
+
+    .g-topic {
+        .fixed {
+            top: 1px;
+            left: 1px;
+            right: 1px;
+        }
+    }
+}
+
+.g-topic-group {
+    margin-bottom: 10px;
+    padding: 20px;
+
+    .icon {
+        float: left;
+        margin-right: 20px;
+
+        img {
+            width: 90px;
+            height: 90px;
+            vertical-align: middle;
+        }
+    }
+
+    .info {
+        float: left;
+
+        h3 {
+            color: #333;
+        }
+
+        .w-text-secondary {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .topic {
+            margin-right: 10px;
+        }
+    }
+
+    .info h3,
+    .action {
+        margin-top: 15px;
+    }
+
+    .action {
+        float: right;
+    }
+
+    .w-btn {
+        padding-left: 20px;
+        padding-right: 20px;
+        // display: none;
+
+        // &.ng-leave {
+        //     -webkit-transition: all 0s linear;
+        //     opacity: 1;
+        // }
+
+        // &.ng-leave-active {
+        //     opacity: 0;
+        // }
+    }
 }
 
 .g-topic {
@@ -578,9 +660,9 @@ img {
 
     .fixed {
         position: fixed;
-        top: 1px;
-        left: 1px;
-        right: 1px;
+        top: 0;
+        left: 0;
+        right: 0;
         background-color: #fff;
         // background-color: #000;
         border-bottom: 1px solid rgba(0, 0, 0, .05);
@@ -601,8 +683,13 @@ img {
         .author {
             width: 100%;
 
-            .avatar {
+            .avatar,
+            .name {
                 display: inline-block;
+                vertical-align: middle;
+            }
+
+            .avatar {
                 margin-right: 10px;
             }
         }
@@ -615,11 +702,13 @@ img {
         &.ng-hide-add,
         &.ng-hide-remove {
             -webkit-transition: all .25s linear;
-            opacity: 1;
+            // opacity: 1;
+            -webkit-transform: translate(0, 0);
         }
 
         &.ng-hide {
-            opacity: 0;
+            // opacity: 0;
+            -webkit-transform: translate(0, -100%);
         }
     }
 
@@ -643,12 +732,11 @@ img {
             .name,
             .role {
                 vertical-align: middle;
+                display: inline-block;
             }
 
             .name {
                 margin-right: 5px;
-                max-width: 60%;
-                display: inline-block;
                 color: #777;
                 font-size: 14px;
             }
@@ -838,10 +926,20 @@ img {
             margin-bottom: 10px;
         }
 
+        .nick,
+        .role,
+        .time {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
         .nick {
             color: #777;
             font-size: 14px;
-            margin-right: 5px;
+        }
+
+        .time {
+            margin-left: 5px;
         }
 
         .parent {
@@ -923,6 +1021,16 @@ img {
             color: #333;
             margin-bottom: 10px;
         }
+
+        .nick,
+        .parent {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .parent {
+            cursor: pointer;
+        }
     }
 }
 
@@ -931,6 +1039,12 @@ img {
 
     h4 {
         margin-top: 0;
+    }
+
+    .post {
+        .return {
+            margin-right: 20px;
+        }
     }
 }
 
@@ -965,11 +1079,6 @@ img {
         color: #777;
     }
 
-    .nickname {
-        display: inline-block;
-        max-width: 14px * 6 + 1px;
-    }
-
     .status {
         color: #999;
     }
@@ -989,5 +1098,27 @@ img {
         // margin-bottom: 5px;
         color: #999;
     }
+}
 
+.ie {
+    .g-header {
+        .nick,
+        .avatar {
+            margin: 15px 0;
+        }
+    }
+
+    .g-topic {
+        .fixed {
+            display: none;
+        }
+    }
+}
+
+.ie8 {
+    .g-publish .action .upload {
+        input {
+            -ms-filter: 'alpha(opacity=0)';
+        }
+    }
 }

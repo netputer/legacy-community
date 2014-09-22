@@ -1,4 +1,5 @@
 define(function () {
+    // @ngInject
     var AccountController = function ($scope, $window, $location, AccountService, GroupService, $timeout) {
         var scope = this;
         scope.isLoggedIn = false;
@@ -53,7 +54,7 @@ define(function () {
 
         var getUnreadNotificationsCount = function () {
             GroupService.getUnreadNotificationsCount().then(function (xhr) {
-                scope.hasUnread = xhr.data.msg !== '0';
+                scope.hasUnread = xhr.data.code === 0 && xhr.data.msg !== '0';
             });
 
             $timeout(getUnreadNotificationsCount, 30000);
@@ -61,8 +62,6 @@ define(function () {
 
         getUnreadNotificationsCount();
     };
-
-    AccountController.$inject = ['$scope', '$window', '$location', 'AccountService', 'GroupService', '$timeout'];
 
     return AccountController;
 });

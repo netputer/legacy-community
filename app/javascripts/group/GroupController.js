@@ -3,6 +3,7 @@ define([
 ], function (
     _
 ) {
+    // @ngInject
     var GroupController = function ($scope, $location, $routeParams, GroupService, AccountService, ModalService) {
         var scope = this;
 
@@ -19,6 +20,24 @@ define([
         scope.admins = [];
         scope.members = [];
         scope.blocks = [];
+
+        var removeMemberFromNormal = function (normalMember) {
+            var summaryIndex = _.findIndex(scope.membersSummary, function (member) {
+                return normalMember.uid === member.uid;
+            });
+
+            var membersIndex = _.findIndex(scope.members, function (member) {
+                return normalMember.uid === member.uid;
+            });
+
+            if (summaryIndex > -1) {
+                scope.membersSummary.splice(summaryIndex, 1);
+            }
+
+            if (membersIndex > -1) {
+               scope.members.splice(membersIndex, 1);
+            }
+        };
 
         scope.joinGroup = function () {
             AccountService.getUser().then(function (user) {
@@ -43,21 +62,9 @@ define([
 
         scope.leaveGroup = function () {
             AccountService.getUser().then(function (user) {
-                var summaryIndex = _.findIndex(scope.membersSummary, function (member) {
-                    return member.uid === user.data.uid;
+                removeMemberFromNormal({
+                    uid: user.data.uid
                 });
-
-                var membersIndex = _.findIndex(scope.members, function (member) {
-                    return member.uid === user.data.uid;
-                });
-
-                if (summaryIndex > -1) {
-                    scope.membersSummary.splice(summaryIndex, 1);
-                }
-
-                if (membersIndex > -1) {
-                   scope.members.splice(membersIndex, 1);
-                }
 
                 scope.group.curUserRole = null;
             });
@@ -99,8 +106,11 @@ define([
             }).then(function (xhr) {
                 var items = xhr.data.items;
 
-                scope.topics = scope.topics.concat(items);
-                scope.afterId = items[items.length - 1].id;
+                if (items.length > 0) {
+                    scope.topics = scope.topics.concat(items);
+                    scope.afterId = items[items.length - 1].id;
+                }
+
                 scope.busy = false;
                 scope.hasMore = xhr.data.hasMore && items.length > 0;
             });
@@ -150,60 +160,67 @@ define([
         };
 
         scope.setAsAdmin = function (member) {
-            // scope.members.splice(scope.members.indexOf(member), 1);
-            // scope.admins.push(member);
-
-            // AccountService.getUser().then(function (user) {
-            //     if (member.uid === user.data.uid) {
-            //         scope.group.curUserRole = 'GROUP_ADMIN';
-            //     }
-            // });
-
             GroupService.updateGroupRole({
                 groupId: $routeParams.id,
                 uid: member.uid,
                 toRole: 'GROUP_ADMIN'
             }).then(function (xhr) {
-                console.log('set as admin', xhr.data);
+                removeMemberFromNormal(member);
+                scope.admins.push(member);
+
+                AccountService.getUser().then(function (user) {
+                    if (member.uid === user.data.uid) {
+                        scope.group.curUserRole = 'GROUP_ADMIN';
+                    }
+                });
             });
         };
 
         scope.setAsBlock = function (member) {
-            // scope.members.splice(scope.members.indexOf(member), 1);
-            // scope.blocks.push(member);
-
-            // AccountService.getUser().then(function (user) {
-            //     if (member.uid === user.data.uid) {
-            //         scope.group.curUserRole = 'GROUP_BLACKUSER';
-            //     }
-            // });
-
             GroupService.updateGroupRole({
                 groupId: $routeParams.id,
                 uid: member.uid,
                 toRole: 'GROUP_BLACKUSER'
             }).then(function (xhr) {
-                console.log('set as block', xhr.data);
+                removeMemberFromNormal(member);
+                scope.blocks.push(member);
+
+                AccountService.getUser().then(function (user) {
+                    if (member.uid === user.data.uid) {
+                        scope.group.curUserRole = 'GROUP_BLACKUSER';
+                    }
+                });
             });
         };
 
         scope.setAsNormal = function (member, from) {
-            console.log(member);
-            // if (from === 'GROUP_ADMIN') {
-            //     scope.admins.splice(scope.admins.indexOf(member), 1);
-            // } else {
-            //     scope.blocks.splice(scope.blocks.indexOf(member), 1);
-            // }
-
-            // scope.members.unshift(member);
-            // scope.membersSummary.unshift(member);
-
             GroupService.updateGroupRole({
                 groupId: $routeParams.id,
                 uid: member.uid,
                 toRole: 'GROUP_MEMBER'
             }).then(function (xhr) {
-                console.log('set as normal', xhr.data);
+                switch (from) {
+                case 'GROUP_ADMIN':
+                    var adminsIndex = scope.admins.indexOf(member);
+
+                    if (adminsIndex > -1) {
+                        scope.admins.splice(adminsIndex, 1);
+                    }
+
+                    break;
+
+                case 'GROUP_BLACKUSER':
+                    var blocksIndex = scope.blocks.indexOf(member);
+
+                    if (blocksIndex > -1) {
+                        scope.blocks.splice(blocksIndex, 1);
+                    }
+
+                    break;
+                }
+
+                scope.members.unshift(member);
+                scope.membersSummary.unshift(member);
             });
         };
 
@@ -219,8 +236,6 @@ define([
         scope.showMemberAdmins();
         // scope.showMemberBlocks();
     };
-
-    GroupController.$inject = ['$scope', '$location', '$routeParams', 'GroupService', 'AccountService', 'ModalService'];
 
     return GroupController;
 });

@@ -10,7 +10,11 @@ module.exports = function (grunt) {
 
     // load all grunt tasks
     // require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-    require('jit-grunt')(grunt);
+    require('jit-grunt')(grunt, {
+        'bump-only': 'grunt-bump',
+        'bump-commit': 'grunt-bump',
+        'changelog': 'grunt-conventional-changelog'
+    });
 
     // configurable paths
     var pathConfig = {
@@ -66,9 +70,8 @@ module.exports = function (grunt) {
                             lrSnippet,
                             require('connect-modrewrite')([
                                 '^/$ /group/ [R]',
-                                // '^/group/?([^.]*)$ http://127.0.0.1:9999/$1 [P]'
+                                '^/group/?[^.]*$ /index.html [L]',
                                 '^/group/?(.*)$ /$1 [L]'
-                                // '^/(groups|topics/notifications)/?[^.]*$ /index.html [L]'
                             ]),
                             mountFolder(connect, pathConfig.tmp),
                             mountFolder(connect, pathConfig.app)
@@ -123,7 +126,8 @@ module.exports = function (grunt) {
                     dest: '<%= paths.dist %>',
                     src: [
                         '**/*.html',
-                        '!components/**/*.html',
+                        'components/**/*',
+                        'javascripts/**/*',
                         '!compass/**/*.html',
                         'images/**/*.{webp,gif,png,jpg,jpeg,ttf,otf,svg}'
                     ]
@@ -146,17 +150,13 @@ module.exports = function (grunt) {
                 sassDir: '<%= paths.app %>/compass/sass',
                 imagesDir: '<%= paths.app %>/compass/images',
                 fontsDir: '<%= paths.app %>/images/fonts',
-                relativeAssets: true,
-                importPath: [
-                    // '<%= paths.app %>/components/adonis/app/compass/sass',
-                    // '<%= paths.app %>/components/Retina-sprites-for-Compass/src'
-                ]
+                relativeAssets: true
             },
             dist: {
                 options: {
                     cssDir: '<%= paths.dist %>/stylesheets',
                     generatedImagesDir: '<%= paths.tmp %>/images',
-                    httpGeneratedImagesPath: '/images/',
+                    httpGeneratedImagesPath: '../images/',
                     outputStyle: 'compressed',
                     environment: 'production',
                     relativeAssets: false
@@ -277,11 +277,33 @@ module.exports = function (grunt) {
             dist: {
                 src: ['<%= paths.dist %>/**/*.html', '<%= paths.dist %>/**/*.css'],
             }
+        },
+        ngAnnotate: {
+            options: {
+                singleQuotes: true,
+            },
+            tmp: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= paths.app %>/javascripts',
+                    src: '**/*.js',
+                    dest: '<%= paths.tmp %>/javascripts'
+                }],
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= paths.app %>/javascripts',
+                    src: '**/*.js',
+                    dest: '<%= paths.dist %>/javascripts'
+                }],
+            }
         }
     });
 
     grunt.registerTask('serve', [
         'concurrent:server',
+        'ngAnnotate:tmp',
         'connect:server',
         // 'karma:server',
         // 'open',
@@ -301,16 +323,16 @@ module.exports = function (grunt) {
     grunt.registerTask('build:staging', [
         'clean:dist',
         'concurrent:dist',
-        'useminPrepare',
-        'concat',
-        'uglify',
-        // 'cssmin', // Uncomment this line if using none-sass style
-        // 'requirejs:dist', // Uncomment this line if using RequireJS in your project
-        'rev',
+        // 'useminPrepare',
+        // 'concat',
+        // 'uglify',
+        // // 'cssmin', // Uncomment this line if using none-sass style
+        // // 'requirejs:dist', // Uncomment this line if using RequireJS in your project
+        // 'rev',
         'copy:compass',
-        'imagemin',
-        'usemin',
-        'htmlmin'
+        // 'imagemin',
+        // 'usemin',
+        // 'htmlmin'
     ]);
 
     grunt.registerTask('build:production', [

@@ -91,7 +91,7 @@
 }
 
 .o-pagination-ctn {
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
     list-style: none;
     color: $textPrimary;
@@ -109,13 +109,13 @@
         display: inline-block;
 
         &.current {
-            font-size: 18px;
+            font-size: 24px;
         }
     }
 
     .o-pagination-dot {
         display : inline-block;
-        // margin: 0 5px;
+        margin: 0 5px;
         color: $textInfo;
         cursor: default;
     }
@@ -200,11 +200,31 @@
         li {
             float: left;
             margin-right: 5px;
+            position: relative;
+
+            &:hover .delete {
+                display: block;
+            }
         }
 
-        img {
+        img,
+        .delete {
             width: 50px;
             height: 50px;
+        }
+
+        .delete {
+            display: none;
+            position: absolute;;
+            top: 0;
+            left: 0;
+
+            background-color: #999;
+            background-color: rgba(0, 0, 0, .4);
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
         }
     }
 
@@ -279,4 +299,11 @@
             // -webkit-transform: scale(1) rotate(0deg);
         }
     }
+}
+
+.g-nick {
+    @extend .w-wc;
+
+    display: inline-block;
+    max-width: 14px * 7 + 1px;
 }

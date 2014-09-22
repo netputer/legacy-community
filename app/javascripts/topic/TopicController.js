@@ -5,7 +5,8 @@ define([
     $,
     _
 ) {
-    var TopicController = function ($scope, $rootScope, $routeParams, GroupService, $timeout, AccountService) {
+    // @ngInject
+    var TopicController = function ($scope, $rootScope, $routeParams, $location, GroupService, $timeout, AccountService) {
         var scope = this;
         var topicId = $rootScope.modalTopicId || $routeParams.id;
         $rootScope.modalTopicId = undefined;
@@ -20,25 +21,27 @@ define([
 
         var $scrollContainer;
         var $meta;
-        var totalPictures = 0;
+        var $textarea;
         var loadedPictures = 0;
         var metaPosition;
 
-        var getBottomPosition = function () {
-            $scrollContainer = $('.modal-content');
-
-            if ($scrollContainer.length === 0) {
+        var getScrollContainer = function () {
+            if ($scrollContainer !== undefined) {
                 return;
             }
 
-            scope.bottomPosition = $scrollContainer[0].scrollHeight;
+            $scrollContainer = $('.modal-content');
+
+            if ($scrollContainer.length === 0) {
+                $scrollContainer = $('body');
+            }
         };
 
         var getMetaPosition = function () {
-            getBottomPosition();
+            getScrollContainer();
 
             $meta = $('.js-meta-bar');
-            return $meta.position().top + $meta.outerHeight();
+            return $meta.offset().top + $meta.outerHeight();
         };
 
         scope.onScroll = function (e) {
@@ -47,7 +50,7 @@ define([
             }
 
             $scope.$apply(function () {
-                scope.showFixed = e.target.scrollTop > metaPosition;
+                scope.showFixed = $scrollContainer.scrollTop() > metaPosition;
             });
         };
 
@@ -61,10 +64,25 @@ define([
             metaPosition = getMetaPosition();
         }, 500);
 
+        var focusTextarea = function () {
+            if ($textarea === undefined) {
+                $textarea = $('.g-publish textarea');
+            }
+
+            $textarea.focus();
+        };
+
         scope.scrollToEnd = function () {
             $scrollContainer.animate({
-                scrollTop: scope.bottomPosition
+                scrollTop: $scrollContainer[0].scrollHeight
             });
+
+            scope.parentReply = {};
+            focusTextarea();
+        };
+
+        scope.returnGroup = function () {
+            $location.path('/' + scope.topic.group.id);
         };
 
         scope.likeTopic = function () {
@@ -141,17 +159,14 @@ define([
         };
 
         scope.postComment = function () {
-            // return console.log('pre po', {
-            //     topicId: topicId,
-            //     message: scope.message,
-            //     picture: scope.pictures,
-            //     parentId: scope.parentReply.id
-            // });
+            if (!scope.topic.group.curUserRole && !confirm('需要加入小组才能发表回复话题，确认加入小组？')) {
+                return;
+            }
 
             GroupService.postComment({
                 topicId: topicId,
                 message: scope.message,
-                picture: scope.pictures,
+                pictures: scope.pictures,
                 parentId: scope.parentReply.id
             }).then(function (xhr) {
                 console.log('postComment', xhr.data);
@@ -165,20 +180,16 @@ define([
 
         scope.replyComment = function (reply) {
             scope.parentReply = reply;
-
-            // Scroll to reply box
-            // UX Notice: Make sure parentId correct
+            focusTextarea();
         };
 
         scope.deleteComment = function (reply) {
-            var index = scope.replies.indexOf(reply);
-            scope.replies.splice(index, 1);
-
-            // GroupService.deleteComment({
-            //     replyId: reply.id
-            // }).then(function (xhr) {
-            //     console.log('deleteComment', xhr.data);
-            // });
+            GroupService.deleteComment({
+                replyId: reply.id
+            }).then(function (xhr) {
+                var index = scope.replies.indexOf(reply);
+                scope.replies.splice(index, 1);
+            });
         };
 
         scope.uploadBefore = function () {
@@ -204,6 +215,10 @@ define([
             if (result.code === 0) {
                 $scope.$apply(function () {
                     scope.pictures.push(result.msg);
+
+                    if (scope.message.length === 0) {
+                        scope.message = '我只发图不说话';
+                    }
                 });
             }
         };
@@ -213,6 +228,15 @@ define([
             console.log('scope fail - data', data);
         };
 
+        scope.deletePicture = function (pic) {
+            var index = scope.pictures.indexOf(pic);
+            scope.pictures.splice(index, 1);
+
+            if (scope.pictures.length === 0 && scope.message === '我只发图不说话') {
+                scope.message = '';
+            }
+        };
+
         GroupService.getTopicDetail({
             topicId: topicId
         }).then(function (xhr) {
@@ -220,12 +244,11 @@ define([
 
             scope.topic = topic;
 
-            if (topic.pictures.length > 0) {
-                totalPictures = topic.pictures.length;
-            }
-
-            // if has image then listen to those image load event
-            // else timeout and then get its position
+            GroupService.getGroupDetail({
+                groupId: topic.group.id
+            }).then(function (xhr) {
+                scope.group = xhr.data;
+            });
 
             $timeout(function () {
                 metaPosition = getMetaPosition();
@@ -246,8 +269,6 @@ define([
             scope.user = user.data;
         });
     };
-
-    TopicController.$inject = ['$scope', '$rootScope', '$routeParams', 'GroupService', '$timeout', 'AccountService'];
 
     return TopicController;
 });

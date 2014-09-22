@@ -1,10 +1,24 @@
 <!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="zh-CN" class="ie ie6">
+<![endif]-->
+<!--[if IE 7]>
+<html lang="zh-CN" class="ie ie7">
+<![endif]-->
+<!--[if IE 8]>
+<html lang="zh-CN" class="ie ie8">
+<![endif]-->
+<!--[if gt IE 8]>
+<html lang="zh-CN" class="ie ie9">
+<![endif]-->
+<!--[if !IE]><!-->
 <html>
+<!--<![endif]-->
     <head>
-        <title>豌豆荚游戏小组</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
         <base href="/group/">
+        <title>豌豆荚游戏小组</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
     </head>
     <body>
         <div class="w-group-ctn">
@@ -23,8 +37,8 @@
                     <div ng-if="!ctrl.isLoggedIn" class="action action-login">
                         <button class="w-btn w-btn-primary" ng-click="ctrl.showLogin()">登录</button>
                     </div>
-                    <div ng-if="ctrl.isLoggedIn" class="action action-user dropdown dropdown-toggle">
-                        <span class="nick w-wc">{{ ctrl.user.nick }}</span>
+                    <div ng-if="ctrl.isLoggedIn" class="action action-user dropdown dropdown-toggle" ng-cloak>
+                        <span class="nick g-nick">{{ ctrl.user.nick }}</span>
                         <div class="avatar" ng-class="{'new': ctrl.hasUnread}">
                             <img class="g-avatar g-avatar-small" ng-src="{{ ctrl.user.avatar }}">
                         </div>

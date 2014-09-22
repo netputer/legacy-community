@@ -4,6 +4,7 @@ define([
 ], function (
     $
 ) {
+    // @ngInject
     var UploadService = function () {
         var $uploader = $('<input type="file">').fileupload({
             url: 'http://group.wandoujia.com/api/v1/file/image',

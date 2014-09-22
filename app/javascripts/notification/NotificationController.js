@@ -1,4 +1,5 @@
 define(function () {
+    // @ngInject
     var NotificationController = function ($scope, GroupService, ModalService) {
         $scope.notifications = [];
         $scope.afterId = 0;
@@ -35,8 +36,6 @@ define(function () {
 
         $scope.loadMoreNotifications();
     };
-
-    NotificationController.$inject = ['$scope', 'GroupService', 'ModalService'];
 
     return NotificationController;
 });

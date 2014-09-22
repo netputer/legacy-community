@@ -1,6 +1,7 @@
 define([
     'autosize'
 ], function () {
+    // @ngInject
     var AutosizeDirective = function () {
         return {
             restrict: 'A',

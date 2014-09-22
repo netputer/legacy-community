@@ -3,48 +3,49 @@ define([
 ], function (
     topicTemplate
 ) {
+    // @ngInject
     var ModalService = function ($modal, $rootScope, $location, $route, $window) {
         return {
             show: function (topicId) {
-                $rootScope.modalTopicId = topicId;
+                $location.path('topic/' + topicId);
 
-                var topicModal = $modal.open({
-                    template: topicTemplate,
-                    controller: 'TopicController as ctrl',
-                    windowClass: 'g-modal'
-                });
+                // $rootScope.modalTopicId = topicId;
 
-                var targetPath = '/topic/' + topicId;
-                var originalPath = $location.path();
-                var originalRoute = $route.current;
-                var urlPrefix = $location.absUrl().replace(originalPath, '');
+                // var topicModal = $modal.open({
+                //     template: topicTemplate,
+                //     controller: 'TopicController as ctrl',
+                //     windowClass: 'g-modal'
+                // });
 
-                var cancelEvent = $rootScope.$on('$locationChangeSuccess', function (event, newUrl, oldUrl) {
-                    $route.current = originalRoute;
+                // var targetPath = '/topic/' + topicId;
+                // var originalPath = $location.path();
+                // var originalRoute = $route.current;
+                // var urlPrefix = $location.absUrl().replace(originalPath, '');
 
-                    if (newUrl !== urlPrefix + targetPath) {
-                        if (!!topicModal) {
-                            topicModal.close();
-                        }
+                // var cancelEvent = $rootScope.$on('$locationChangeSuccess', function (event, newUrl, oldUrl) {
+                //     $route.current = originalRoute;
 
-                        cancelEvent();
-                    }
-                });
+                //     if (newUrl !== urlPrefix + targetPath) {
+                //         if (!!topicModal) {
+                //             topicModal.close();
+                //         }
 
-                topicModal.opened.then(function () {
-                    $location.path(targetPath);
-                });
+                //         cancelEvent();
+                //     }
+                // });
 
-                topicModal.result.then(function () {}, function () {
-                    $window.history.back();
-                })['finally'](function(){
-                    topicModal = undefined;
-                });
+                // topicModal.opened.then(function () {
+                //     $location.path(targetPath);
+                // });
+
+                // topicModal.result.then(function () {}, function () {
+                //     $window.history.back();
+                // })['finally'](function(){
+                //     topicModal = undefined;
+                // });
             }
         };
     };
-
-    ModalService.$inject = ['$modal', '$rootScope', '$location', '$route', '$window'];
 
     return ModalService;
 });
