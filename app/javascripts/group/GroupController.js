@@ -4,7 +4,7 @@ define([
     _
 ) {
     // @ngInject
-    var GroupController = function ($scope, $location, $routeParams, GroupService, AccountService, ModalService) {
+    var GroupController = function ($scope, $location, $routeParams, $window, GroupService, AccountService, ModalService) {
         var scope = this;
 
         scope.currentTab = 'topics';
@@ -54,6 +54,10 @@ define([
                     scope.members.unshift(userObj);
 
                     scope.group.curUserRole = 'GROUP_MEMBER';
+                });
+            }, function () {
+                AccountService.open('login').then(function (user) {
+                    $window.location.reload();
                 });
             });
         };
