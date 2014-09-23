@@ -110,13 +110,11 @@ define([
             redirectTo: '/'
         });
     }).run(function ($window, $rootScope, $location) {
-        var ga = $window.ga;
-        ga('create', 'UA-15790641-56', 'auto');
+        window._gaq = window._gaq || [];
+        window._gaq.push(['_setAccount', 'UA-15790641-56']);
 
         $rootScope.$on('$locationChangeSuccess', function () {
-            var url = $location.url();
-            ga('set', 'page', url);
-            ga('send', 'pageview', url);
+            window._gaq.push(['_trackPageview', $location.url()]);
         });
     });
 });
