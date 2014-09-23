@@ -182,6 +182,7 @@ define([
                 scope.message = null;
                 scope.pictures = [];
                 scope.parentReply = {};
+                scope.placeholder = '';
 
                 scope.topic.group.curUserRole = 'GROUP_MEMBER';
             });
