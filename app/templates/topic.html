@@ -1,6 +1,6 @@
 <div class="g-topic-group w-component-card w-cf" ng-if="ctrl.topic.group.id">
     <div class="icon">
-        <img class="g-app-icon" src="images/avatar-default.png" ng-src="{{ ctrl.group.icon.url }}" cmty-load="ctrl.pictureLoaded()">
+        <img class="g-app-icon" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ ctrl.group.icon.url }}" cmty-load="ctrl.pictureLoaded()">
     </div>
     <div class="info">
         <h3>{{ ctrl.group.title }}</h3>
@@ -18,7 +18,7 @@
         <div class="w-container">
             <div class="author">
                 <div class="avatar">
-                    <img class="g-avatar g-avatar-large" src="images/avatar-default.png" ng-src="{{ ctrl.topic.author.avatar }}">
+                    <img class="g-avatar g-avatar-large" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ ctrl.topic.author.avatar }}">
                 </div>
                 <span class="name g-nick">{{ ctrl.topic.author.nick }}</span>
                 <em ng-if="ctrl.topic.author.role === 'GROUP_ADMIN'" class="role g-role">组长</em>
@@ -112,7 +112,7 @@
     </div>
     <div class="publish w-cf" ng-if="ctrl.topic.curUserPermissions.indexOf('ADD_REPLY') > -1">
         <div class="avatar">
-            <img class="g-avatar g-avatar-small" src="images/avatar-default.png" ng-src="{{ ctrl.user.avatar }}">
+            <img class="g-avatar g-avatar-small" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ ctrl.user.avatar }}">
         </div>
         <div class="info">
             <div class="nickname">
