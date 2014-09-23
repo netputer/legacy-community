@@ -1,4 +1,5 @@
 define(function () {
+    // @ngInject
     var HttpInterceptor = function ($q) {
         return {
             request: function (config) {
