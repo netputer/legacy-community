@@ -86,7 +86,17 @@ module.exports = function (grunt) {
             server: '<%= paths.tmp %>'
         },
         useminPrepare: {
-            html: ['<%= paths.tmp %>/**/*.html'],
+            html: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= paths.tmp %>',
+                    src: [
+                        '**/*.html',
+                        '!components/**/*.html',
+                        '!templates/**/*.html'
+                    ],
+                }]
+            },
             options: {
                 dest: '<%= paths.dist %>'
             }
