@@ -86,7 +86,7 @@ module.exports = function (grunt) {
             server: '<%= paths.tmp %>'
         },
         useminPrepare: {
-            html: ['<%= paths.app %>/**/*.html'],
+            html: ['<%= paths.tmp %>/**/*.html'],
             options: {
                 dest: '<%= paths.dist %>'
             }
@@ -100,38 +100,55 @@ module.exports = function (grunt) {
             }
         },
         htmlmin: {
-            options: {
-                collapseWhitespace: true
+            templates: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= paths.app %>',
+                    src: ['templates/**/*.html'],
+                    dest: '<%= paths.tmp %>'
+                }],
+                options: {
+                    collapseWhitespace: true,
+                    removeComments: true
+                }
             },
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= paths.dist %>',
-                    src: ['**/*.html'],
+                    cwd: '<%= paths.tmp %>',
+                    src: [
+                        '**/*.html',
+                        '!components/**/*.html',
+                        '!templates/**/*.html'
+                    ],
                     dest: '<%= paths.dist %>'
                 }]
             }
         },
         copy: {
-            dist: {
+            build: {
                 files: [{
                     expand: true,
-                    dot: true,
+                    cwd: '<%= paths.app %>',
+                    dest: '<%= paths.tmp %>',
+                    src: [
+                        '**/*.html',
+                        '!templates/**/*.html',
+                        '!compass/**/*.html',
+                        'components/**/*'
+                    ]
+                }, {
+                    expand: true,
                     cwd: '<%= paths.app %>',
                     dest: '<%= paths.dist %>',
                     src: [
-                        '**/*.html',
-                        'components/**/*',
-                        'javascripts/**/*',
-                        '!compass/**/*.html',
                         'images/**/*.{webp,gif,png,jpg,jpeg,ttf,otf,svg}'
                     ]
                 }]
             },
-            compass: {
+            sprites: {
                 files: [{
                     expand: true,
-                    dot: true,
                     cwd: '<%= paths.tmp %>',
                     dest: '<%= paths.dist %>',
                     src: [
@@ -145,12 +162,12 @@ module.exports = function (grunt) {
                 sassDir: '<%= paths.app %>/compass/sass',
                 imagesDir: '<%= paths.app %>/compass/images',
                 fontsDir: '<%= paths.app %>/images/fonts',
+                generatedImagesDir: '<%= paths.tmp %>/images',
                 relativeAssets: true
             },
             dist: {
                 options: {
                     cssDir: '<%= paths.dist %>/stylesheets',
-                    generatedImagesDir: '<%= paths.tmp %>/images',
                     httpGeneratedImagesPath: '../images/',
                     outputStyle: 'compressed',
                     environment: 'production',
@@ -160,7 +177,6 @@ module.exports = function (grunt) {
             server: {
                 options: {
                     cssDir: '<%= paths.tmp %>/stylesheets',
-                    generatedImagesDir: '<%= paths.tmp %>/images',
                     debugInfo: true,
                     environment: 'development'
                 }
@@ -197,7 +213,7 @@ module.exports = function (grunt) {
                 removeCombined: true,
                 wrap: true
             },
-            dist: {
+            build: {
                 options: {
                     modules: [{
                         name: 'main'
@@ -211,17 +227,14 @@ module.exports = function (grunt) {
             }
         },
         concurrent: {
-            server: {
-                tasks: ['clean:server', 'compass:server'],
-                options: {
-                    logConcurrentOutput: true
-                }
+            options: {
+                logConcurrentOutput: true
             },
-            dist: {
-                tasks: ['copy:dist', 'compass:dist'],
-                options: {
-                    logConcurrentOutput: true
-                }
+            build: {
+                tasks: [
+                    'copy:build',
+                    'compass:dist'
+                ]
             }
         },
         jshint: {
@@ -242,7 +255,7 @@ module.exports = function (grunt) {
             test: {
                 reporters: ['progress', 'junit', 'coverage'],
                 preprocessors: {
-                    '<%= paths.app %>/javascripts/**/*.js' : 'coverage'
+                    '<%= paths.app %>/javascripts/**/*.js': 'coverage'
                 },
                 junitReporter: {
                     outputFile: '<%= paths.test %>/output/test-results.xml'
@@ -288,37 +301,29 @@ module.exports = function (grunt) {
             options: {
                 singleQuotes: true,
             },
-            tmp: {
+            build: {
                 files: [{
                     expand: true,
-                    cwd: '<%= paths.app %>/javascripts',
+                    cwd: '<%= paths.tmp %>/javascripts',
                     src: '**/*.js',
                     dest: '<%= paths.tmp %>/javascripts'
                 }],
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= paths.app %>/javascripts',
-                    src: '**/*.js',
-                    dest: '<%= paths.dist %>/javascripts'
-                }],
             }
         },
-        'wandoulabs_deploy' : {
-            options : grunt.file.readJSON('OathKeeper/frontend/ldap.json'),
-            cdn : {
-                deployCDN : {
-                    src : '<%= paths.dist %>',
-                    target : 'community'
+        'wandoulabs_deploy': {
+            options: grunt.file.readJSON('OathKeeper/frontend/ldap.json'),
+            cdn: {
+                deployCDN: {
+                    src: '<%= paths.dist %>',
+                    target: 'community'
                 }
             }
         }
     });
 
     grunt.registerTask('serve', [
-        'concurrent:server',
-        'ngAnnotate:tmp',
+        'clean:server',
+        'compass:server',
         'connect:server',
         // 'karma:server',
         // 'open',
@@ -337,33 +342,24 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build:staging', [
         'clean:dist',
-        'concurrent:dist',
-        // 'useminPrepare',
-        // 'concat',
-        // 'uglify',
-        // // 'cssmin', // Uncomment this line if using none-sass style
-        // // 'requirejs:dist', // Uncomment this line if using RequireJS in your project
-        // 'rev',
-        'copy:compass',
-        // 'imagemin',
-        // 'usemin',
-        // 'htmlmin'
-    ]);
-
-    grunt.registerTask('build:production', [
-        'clean:dist',
-        'concurrent:dist',
+        'concurrent:build',
+        'htmlmin:templates',
+        'requirejs:build',
+        'ngAnnotate:build',
         'useminPrepare',
         'concat',
         'uglify',
-        // 'cssmin', // Uncomment this line if using none-sass style
-        // 'requirejs:dist', // Uncomment this line if using RequireJS in your project
         'rev',
-        'copy:compass',
-        'imagemin',
-        'usemin',
-        'htmlmin',
-        'cdn:dist'
+        'copy:sprites',
+        'imagemin:dist',
+        'htmlmin:dist',
+        'usemin'
+    ]);
+
+    grunt.registerTask('build:production', [
+        'build:staging',
+        'cdn:dist',
+        'wandoulabs_deploy:cdn'
     ]);
 
     grunt.registerTask(['update'], [
