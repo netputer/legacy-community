@@ -274,11 +274,14 @@ module.exports = function (grunt) {
         },
         cdn: {
             options: {
-                cdn: 'http://change.this.to.cdn.path',
+                cdn: 'http://s.wdjimg.com/community',
                 flatten: true
             },
             dist: {
-                src: ['<%= paths.dist %>/**/*.html', '<%= paths.dist %>/**/*.css'],
+                src: [
+                    '<%= paths.dist %>/**/*.html',
+                    '<%= paths.dist %>/**/*.css'
+                ]
             }
         },
         ngAnnotate: {
@@ -300,6 +303,15 @@ module.exports = function (grunt) {
                     src: '**/*.js',
                     dest: '<%= paths.dist %>/javascripts'
                 }],
+            }
+        },
+        'wandoulabs_deploy' : {
+            options : grunt.file.readJSON('OathKeeper/frontend/ldap.json'),
+            cdn : {
+                deployCDN : {
+                    src : '<%= paths.dist %>',
+                    target : 'community'
+                }
             }
         }
     });

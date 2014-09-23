@@ -34,6 +34,7 @@
     "grunt-requirejs": "0.4.2",
     "grunt-rev": "0.1.0",
     "grunt-usemin": "2.2.0",
+    "grunt-wandoulabs-deploy": "git+ssh://git@github.com:wandoulabs/grunt-wandoulabs-deploy.git",
     "karma": "0.12.16",
     "karma-coverage": "0.2.4",
     "karma-firefox-launcher": "0.1.3",
