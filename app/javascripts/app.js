@@ -82,6 +82,8 @@ define([
             return result.join('&');
         });
 
+        $httpProvider.interceptors.push('cmtyHttpInterceptor');
+
         $locationProvider.html5Mode(true);
 
         $routeProvider.when('/', {
