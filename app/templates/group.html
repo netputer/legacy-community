@@ -2,7 +2,7 @@
     <div class="summary w-component-card">
         <div class="summary-header w-cf">
             <div class="icon">
-                <img class="g-app-icon" src="images/avatar-default.png" ng-src="{{ ctrl.group.icon.url }}">
+                <img class="g-app-icon" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ ctrl.group.icon.url }}">
             </div>
             <div class="info">
                 <h3>{{ ctrl.group.title }}</h3>
@@ -20,7 +20,7 @@
         <div class="summary-footer w-cf">
             <div class="title">小组成员</div>
             <ul class="g-avatar-wall">
-                <li ng-repeat="member in ctrl.membersSummary"><img class="g-avatar g-avatar-small" src="images/avatar-default.png" ng-src="{{ member.avatar }}"></li>
+                <li ng-repeat="member in ctrl.membersSummary"><img class="g-avatar g-avatar-small" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ member.avatar }}"></li>
             </ul>
         </div>
     </div>
@@ -37,7 +37,7 @@
                 <li ng-repeat="topic in ctrl.topics track by $index" class="w-component-card w-component-card-hover" ng-click="ctrl.showTopic(topic.id)">
                     <span class="sticky" ng-show="topic.isSticky">置顶</span>
                     <div class="avatar">
-                        <img class="g-avatar" src="images/avatar-default.png" ng-src="{{ topic.author.avatar }}">
+                        <img class="g-avatar" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ topic.author.avatar }}">
                     </div>
                     <div class="info">
                         <div class="nickname g-nick">{{ topic.author.nick }}</div>
@@ -88,7 +88,7 @@
                         <ul class="w-cf">
                             <li ng-repeat="admin in ctrl.admins">
                                 <div class="avatar">
-                                    <img class="g-avatar g-avatar-large" src="images/avatar-default.png" ng-src="{{ admin.avatar }}">
+                                    <img class="g-avatar g-avatar-large" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ admin.avatar }}">
                                 </div>
                                 <div class="action">
                                     <span class="nickname w-wc">{{ admin.nick }}</span>
@@ -108,7 +108,7 @@
                         <ul class="w-cf">
                             <li ng-repeat="member in ctrl.members">
                                 <div class="avatar">
-                                    <img class="g-avatar g-avatar-large" src="images/avatar-default.png" ng-src="{{ member.avatar }}">
+                                    <img class="g-avatar g-avatar-large" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ member.avatar }}">
                                 </div>
                                 <div class="action">
                                     <span class="nickname w-wc">{{ member.nick }}</span>
@@ -130,7 +130,7 @@
                     <ul>
                         <li ng-repeat="block in ctrl.blocks">
                             <div class="avatar">
-                                <img class="g-avatar g-avatar-large" src="images/avatar-default.png" ng-src="{{ block.avatar }}">
+                                <img class="g-avatar g-avatar-large" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ block.avatar }}">
                             </div>
                             <div class="action">
                                 <span class="nickname w-wc">{{ block.nick }}</span>

@@ -1,5 +1,6 @@
 define([
     'angular',
+    'common/HttpInterceptor',
     'common/GroupService',
     'common/UploadService',
     'common/AutosizeDirective',
@@ -8,6 +9,7 @@ define([
     'common/RelativeFilter'
 ], function (
     angular,
+    HttpInterceptor,
     GroupService,
     UploadService,
     AutosizeDirective,
@@ -17,6 +19,7 @@ define([
 ) {
     angular.module('cmtyCommon', [])
 
+    .factory('cmtyHttpInterceptor', HttpInterceptor)
     .factory('GroupService', GroupService)
     .factory('UploadService', UploadService)
     .directive('cmtyAutosize', AutosizeDirective)

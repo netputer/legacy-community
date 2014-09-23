@@ -6,7 +6,7 @@ define([
     // @ngInject
     var AccountServices = function ($q) {
         var userDeferred = $q.defer();
-        $q.when(account.checkAsync()).then(userDeferred.resolve);
+        $q.when(account.checkAsync()).then(userDeferred.resolve, userDeferred.reject);
 
         return {
             getUser: function () {

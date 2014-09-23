@@ -44,14 +44,6 @@ define(function () {
             anchor[0].click();
         };
 
-        AccountService.getUser().then(function (user) {
-            scope.isLoggedIn = user.isLoggedIn;
-            scope.user = user.data;
-        });
-
-        scope.isLoggedIn = AccountService.isLoggedIn;
-        scope.user = AccountService.user;
-
         var getUnreadNotificationsCount = function () {
             GroupService.getUnreadNotificationsCount().then(function (xhr) {
                 scope.hasUnread = xhr.data.code === 0 && xhr.data.msg !== '0';
@@ -60,7 +52,15 @@ define(function () {
             $timeout(getUnreadNotificationsCount, 30000);
         };
 
-        getUnreadNotificationsCount();
+        AccountService.getUser().then(function (user) {
+            scope.isLoggedIn = user.isLoggedIn;
+            scope.user = user.data;
+
+            getUnreadNotificationsCount();
+        });
+
+        scope.isLoggedIn = AccountService.isLoggedIn;
+        scope.user = AccountService.user;
     };
 
     return AccountController;
