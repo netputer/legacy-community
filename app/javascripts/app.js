@@ -107,5 +107,14 @@ define([
         }).otherwise({
             redirectTo: '/'
         });
+    }).run(function ($window, $rootScope, $location) {
+        var ga = $window.ga;
+        ga('create', 'UA-15790641-56', 'auto');
+
+        $rootScope.$on('$locationChangeSuccess', function () {
+            var url = $location.url();
+            ga('set', 'page', url);
+            ga('send', 'pageview', url);
+        });
     });
 });
