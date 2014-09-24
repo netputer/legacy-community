@@ -4,7 +4,8 @@ define([
     topicTemplate
 ) {
     // @ngInject
-    var ModalService = function ($modal, $rootScope, $location, $route, $window) {
+    // var ModalService = function ($modal, $rootScope, $location, $route, $window) {
+    var ModalService = function ($location) {
         return {
             show: function (topicId) {
                 $location.path('topic/' + topicId);
