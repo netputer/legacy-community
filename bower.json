@@ -7,7 +7,6 @@
     "angular": "~1.2.20",
     "angular-route": "~1.2.20",
     "angular-animate": "~1.2.20",
-    "angular-bootstrap": "~0.11.0",
     "WandouLabs-AccountJavaScriptSDK": "wandoulabs/Account-JavaScriptSDK#~1.1.5",
     "ngInfiniteScroll": "~1.1.2",
     "jquery-file-upload": "~9.6.0",
