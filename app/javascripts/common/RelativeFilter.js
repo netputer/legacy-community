@@ -17,7 +17,7 @@ define(function () {
             }
 
             var textTime = textHour + ':' + textMinute;
-            var textDate = dateTarget.getMonth() + '月' + dateTarget.getDate() + '日';
+            var textDate = (dateTarget.getMonth() + 1) + '月' + dateTarget.getDate() + '日';
             var textYear = dateTarget.getFullYear() + '年';
 
             var seconds = Math.floor((dateCurrent - dateTarget) / 1000);
