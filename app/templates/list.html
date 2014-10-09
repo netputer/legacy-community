@@ -1,3 +1,10 @@
+<div class="g-list-nav g-nav w-cf">
+    <ul>
+        <li ng-class="{selected: ctrl.currentTab === 'GAME'}" ng-click="ctrl.switchTabTo('GAME')">游戏小组</li>
+        <li ng-class="{selected: ctrl.currentTab === 'TV'}" ng-click="ctrl.switchTabTo('TV')">影视小组</li>
+        <li ng-class="{selected: ctrl.currentTab === 'ANIME'}" ng-click="ctrl.switchTabTo('ANIME')">动漫小组</li>
+    </ul>
+</div>
 <div class="g-list">
     <ul class="w-cf" infinite-scroll="ctrl.loadMoreGroups()" infinite-scroll-disabled="ctrl.busy || !ctrl.hasMore" infinite-scroll-distance="0.2">
         <li ng-repeat="group in ctrl.groups" ng-click="ctrl.redirectToGroup(group.id)">
