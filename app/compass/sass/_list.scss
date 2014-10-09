@@ -1,0 +1,81 @@
+.g-list {
+    ul {
+        list-style: none;
+        display: table;
+        margin-right: -10px;
+    }
+
+    li {
+        float: left;
+        margin: 0 10px 10px 0;
+        text-align: center;
+        position: relative;
+        cursor: pointer;
+
+        &.ng-enter,
+        &.ng-move {
+            -webkit-transition: .2s ease-out all;
+
+            opacity: 0;
+            -webkit-transform: translate3d(0, 50px, 0);
+
+            &.ng-enter-active,
+            &.ng-move-active {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+            }
+        }
+    }
+
+    .card {
+        display: table-cell;
+        vertical-align: middle;
+        width: 295px;
+        height: 200px;
+
+        .cover {
+            .title,
+            .meta {
+                margin: 5px auto 0;
+            }
+
+            .icon {
+                width: 80px;
+                height: 80px;
+            }
+
+            .title {
+                max-width: 240px;
+                font-size: 20px;
+                color: #333;
+            }
+
+            .meta {
+                font-size: 14px;
+                color: #999;
+            }
+
+            .topic {
+                margin-right: 10px;
+            }
+        }
+
+        .slogon {
+            display: none;
+            margin: 0;
+            padding: 0 20px;
+            background-color: #fff;
+            font-size: 14px;
+        }
+
+        &:hover {
+            .cover {
+                display: none;
+            }
+
+            .slogon {
+                display: block;
+            }
+        }
+    }
+}

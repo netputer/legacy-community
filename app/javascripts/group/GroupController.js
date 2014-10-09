@@ -11,6 +11,7 @@ define([
         scope.currentMemberTab = 'all';
 
         scope.topics = [];
+        scope.startId = 0;
         scope.afterId = 0;
         scope.busy = false;
         scope.hasMore = true;
@@ -103,13 +104,15 @@ define([
 
             GroupService.getGroupTopic({
                 groupId: $routeParams.id,
-                afterId: scope.afterId,
+                start: scope.startId,
+                // afterId: scope.afterId,
                 max: 10
             }).then(function (xhr) {
                 var items = xhr.data.items;
 
                 if (items.length > 0) {
                     scope.topics = scope.topics.concat(items);
+                    scope.startId = scope.startId + items.length;
                     scope.afterId = items[items.length - 1].id;
                 }
 

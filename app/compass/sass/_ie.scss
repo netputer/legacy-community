@@ -1,0 +1,22 @@
+.ie {
+    .g-header {
+        .nick,
+        .avatar {
+            margin: 15px 0;
+        }
+    }
+
+    .g-topic {
+        .fixed {
+            display: none;
+        }
+    }
+}
+
+.ie8 {
+    .g-publish .action .upload {
+        input {
+            -ms-filter: 'alpha(opacity=0)';
+        }
+    }
+}

@@ -1,0 +1,374 @@
+.g-group {
+    .summary {
+        .summary-header,
+        .summary-slogon,
+        .summary-footer {
+            padding: 20px;
+        }
+
+        .summary-header {
+            .icon {
+                float: left;
+                margin-right: 20px;
+
+                img {
+                    width: 90px;
+                    height: 90px;
+                    vertical-align: middle;
+                }
+            }
+
+            .info {
+                float: left;
+
+                h3 {
+                    color: #333;
+                }
+
+                .w-text-secondary {
+                    color: #999;
+                    font-size: 14px;
+                }
+
+                .topic {
+                    margin-right: 10px;
+                }
+            }
+
+            .info h3,
+            .action {
+                margin-top: 15px;
+            }
+
+            .action {
+                float: right;
+            }
+
+            .w-btn {
+                padding-left: 20px;
+                padding-right: 20px;
+                // display: none;
+
+                // &.ng-leave {
+                //     -webkit-transition: all 0s linear;
+                //     opacity: 1;
+                // }
+
+                // &.ng-leave-active {
+                //     opacity: 0;
+                // }
+            }
+        }
+
+        .summary-slogon {
+            padding-top: 0;
+            color: #999;
+        }
+
+        .summary-footer {
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            // border-top: 1px solid $borderColor;
+            border-top: 1px solid #eee;
+
+            .title {
+                float: left;
+                line-height: 24px;
+                margin-right: 10px;
+                color: #999;
+                font-size: 14px;
+            }
+
+            ul {
+                list-style: none;
+                overflow: hidden;
+                height: 24px;
+            }
+
+            li {
+                margin-right: 5px;
+                display: inline-block;
+                // line-height: 1;
+                // vertical-align: middle;
+            }
+
+            img {
+                display: inline-block;
+            }
+        }
+    }
+
+    .body {
+        margin-top: 10px;
+
+        .body-nav {
+            // border-bottom: 2px solid $textInfo;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 10px;
+
+            ul {
+                list-style: none;
+            }
+
+            li {
+                float: left;
+                padding: 10px 20px;
+                display: block;
+                text-decoration: none;
+                // color: $textInfo;
+                color: #777;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            li:hover,
+            .selected {
+                color: $standardColor;
+            }
+
+            .selected {
+                margin-bottom: -2px;
+                border-bottom: 2px solid $standardColor;
+            }
+        }
+
+        .topics {
+            ul {
+                list-style: none;
+            }
+
+            li {
+                margin-bottom: 10px;
+                padding: 15px;
+                cursor: pointer;
+                position: relative;
+
+                &.ng-enter,
+                &.ng-move {
+                    -webkit-transition: .2s ease-out all;
+
+                    opacity: 0;
+                    -webkit-transform: translate3d(0, 50px, 0);
+
+                    &.ng-enter-active,
+                    &.ng-move-active {
+                        opacity: 1;
+                        -webkit-transform: translate3d(0, 0, 0);
+                    }
+                }
+            }
+
+            .sticky {
+                position: absolute;
+                top: 0;
+                right: 0;
+                display: block;
+                background-color: #eee;
+                color: #aaa;
+                padding: 0 20px;
+                line-height: 24px;
+            }
+
+            .avatar {
+                float: left;
+                margin-right: 15px;
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+
+            .info {
+                overflow: hidden;
+
+                .nickname {
+                    color: #777;
+                    margin-bottom: 5px;
+                }
+
+                // pre {
+                //     max-height: 6em;
+                //     overflow: hidden;
+                //     font-size: 14px;
+                //     color: #333;
+                // }
+            }
+
+            .content {
+                max-height: 6em;
+                overflow: hidden;
+                font-size: 14px;
+                color: #333;
+                line-height: 1.5em;
+
+                // margin-bottom: 5px;
+            }
+
+            .pics {
+                margin: 5px 0 -5px;
+
+                .pic {
+                    float: left;
+                    margin: 0 5px 5px 0;
+                    padding: 0;
+
+                    img {
+                        width: 120px;
+                        height: 120px;
+                    }
+                }
+            }
+
+            .status {
+                margin-top: 10px;
+            }
+
+            .meta {
+                float: left;
+
+                .like,
+                .comment {
+                    display: inline-block;
+                    margin-right: 10px;
+                    color: #999;
+                }
+
+                .g-icon,
+                .count {
+                    vertical-align: middle;
+                }
+
+                .g-icon {
+                    margin-right: 2px;
+                }
+            }
+
+            .last {
+                float: right;
+                color: #999;
+                margin-top: 6px;
+
+                .nick,
+                .time {
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .members {
+            padding: 10px;
+
+            .members-nav {
+                ul {
+                    list-style: none;
+                }
+
+                li {
+                    float: left;
+                }
+
+                a {
+                    display: block;
+                    padding: 10px;
+                    // color: $standardColor;
+                }
+
+                .selected a {
+                    color: $textNormal;
+                    text-decoration: none;
+                    cursor: default;
+                }
+
+                .exit {
+                    float: right;
+                    padding: 10px;
+                }
+            }
+
+            .members-all {
+                // margin-top: 10px;
+            }
+
+            .members-admin {
+                padding-bottom: 10px;
+            }
+
+            .title {
+                border-left: 2px solid $standardColor;
+                padding: 0 5px;
+                margin: 10px 0 15px 10px;
+                color: #999;
+                font-size: 14px;
+            }
+
+            .notice {
+                text-align: center;
+            }
+
+            .list {
+                > ul {
+                    list-style: none;
+
+                    > li {
+                        float: left;
+                        text-align: center;
+                        width: 96px;
+                        padding: 0 10px 10px;
+                    }
+                }
+
+                .avatar {
+                    position: relative;
+                    width: 80px;
+                    margin: 0 auto;
+                }
+
+                .role {
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                }
+
+                .action {
+                    margin-top: 5px;
+                }
+
+                .nickname {
+                    display: inline-block;
+                    line-height: 16px;
+                    max-width: 12px * 6 + 1px;
+                    color: #333;
+                }
+            }
+
+            &.manage {
+                // .members-member,
+                // .members-block {
+                //     .nickname {
+                //         max-width: 12px * 4 + 1px;
+                //     }
+                // }
+
+                .nickname {
+                    max-width: 12px * 4 + 1px;
+                }
+            }
+        }
+    }
+}
+
+.g-post {
+    padding: 20px;
+
+    h4 {
+        margin-top: 0;
+    }
+
+    .post {
+        .return {
+            margin-right: 20px;
+        }
+    }
+}

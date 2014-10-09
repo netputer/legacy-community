@@ -1,9 +1,9 @@
 <div class="g-topic-group w-component-card w-cf" ng-if="ctrl.topic.group.id">
     <div class="icon">
-        <img class="g-app-icon" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ ctrl.group.icon.url }}" cmty-load="ctrl.pictureLoaded()">
+        <a ng-click="ctrl.returnGroup()"><img class="g-app-icon" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ ctrl.group.icon.url }}" cmty-load="ctrl.pictureLoaded()"></a>
     </div>
     <div class="info">
-        <h3>{{ ctrl.group.title }}</h3>
+        <h3><a ng-click="ctrl.returnGroup()">{{ ctrl.group.title }}</a></h3>
         <div class="w-text-secondary">
             <span class="topic">话题 {{ ctrl.group.totalTopicsCount }}</span>
             <span class="member">成员 {{ ctrl.group.membersCount }}</span>

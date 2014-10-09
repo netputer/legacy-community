@@ -1,0 +1,51 @@
+.g-notifications {
+    ul {
+        list-style: none;
+    }
+
+    li {
+        margin-bottom: 10px;
+        padding: 15px;
+        cursor: pointer;
+    }
+
+    .avatar {
+        float: left;
+        margin-right: 10px;
+    }
+
+    .info {
+        overflow: hidden;
+    }
+
+    .title {
+        margin-bottom: 10px;
+    }
+
+    .nickname,
+    .status {
+        vertical-align: middle;
+        font-size: 14px;
+        color: #777;
+    }
+
+    .status {
+        color: #999;
+    }
+
+    .time {
+        float: right;
+    }
+
+    .content pre {
+        font-size: 14px;
+    }
+
+    .parent {
+        margin-top: 5px;
+        border-left: 2px solid $borderColor;
+        padding: 0 5px;
+        // margin-bottom: 5px;
+        color: #999;
+    }
+}
