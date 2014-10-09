@@ -34,6 +34,14 @@
 
         h3 {
             color: #333;
+
+            a {
+                color: #333;
+
+                &:hover {
+                    color: $textHover;
+                }
+            }
         }
 
         .w-text-secondary {
