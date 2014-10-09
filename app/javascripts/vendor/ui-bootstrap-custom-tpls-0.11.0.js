@@ -1,3 +1,4 @@
+// jshint ignore:start
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
