@@ -1,3 +1,20 @@
+<a name="0.2.0"></a>
+## 0.2.0 (2014-10-09)
+
+
+#### Bug Fixes
+
+* Temporary using `start` to turning pages ((53833e52))
+* wrong month ((12aaa5aa))
+
+
+#### Features
+
+* Add navigation tabs to group list ((ecea8c87))
+* Add `subject_type` to `GroupService.getGroupList` ((af6ba5ea))
+* Split `main.css` into different modules ((c010127c))
+
+
 <a name="0.1.0"></a>
 ## 0.1.0 (2014-09-24)
 
