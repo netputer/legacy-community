@@ -15,6 +15,7 @@ define(function () {
                     method: 'GET',
                     url: API_ROOT + '/groups/list',
                     params: {
+                        'subject_type': options.subjectType,
                         'start': options.start,
                         'max': options.max
                     }
