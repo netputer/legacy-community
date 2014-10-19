@@ -125,6 +125,10 @@ define([
             }
         };
 
+        scope.editTopic = function () {
+            $location.path('/topic/' + topicId + '/edit');
+        };
+
         var scrollToTopReply = function () {
             $scrollContainer.animate({
                 scrollTop: metaPosition
