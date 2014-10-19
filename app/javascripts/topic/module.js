@@ -1,15 +1,15 @@
 define([
     'angular',
     'topic/ModalService',
-    'topic/TopicController',
     'topic/LoadDirective',
-    'topic/ParentScrollDirective'
+    'topic/ParentScrollDirective',
+    'topic/TopicController'
 ], function (
     angular,
     ModalService,
-    TopicController,
     LoadDirective,
-    ParentScrollDirective
+    ParentScrollDirective,
+    TopicController
 ) {
     angular.module('cmtyTopic', [])
 
