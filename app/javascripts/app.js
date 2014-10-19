@@ -5,6 +5,7 @@ define([
     'text!../templates/group.html',
     'text!../templates/post.html',
     'text!../templates/topic.html',
+    'text!../templates/edit.html',
     'text!../templates/notification.html',
 
     'ngRoute',
@@ -25,6 +26,7 @@ define([
     groupTemplate,
     postTemplate,
     topicTemplate,
+    editTemplate,
     notificationTemplate
 ) {
     angular.module('cmtyApp', [
@@ -106,6 +108,10 @@ define([
             controller: 'TopicController',
             controllerAs: 'ctrl',
             template: topicTemplate
+        }).when('/topic/:id/edit', {
+            controller: 'EditController',
+            controllerAs: 'ctrl',
+            template: editTemplate
         }).otherwise({
             redirectTo: '/'
         });
