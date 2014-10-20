@@ -1,20 +1,23 @@
 define([
     'angular',
     'topic/ModalService',
-    'topic/TopicController',
     'topic/LoadDirective',
-    'topic/ParentScrollDirective'
+    'topic/ParentScrollDirective',
+    'topic/TopicController',
+    'topic/EditController'
 ], function (
     angular,
     ModalService,
-    TopicController,
     LoadDirective,
-    ParentScrollDirective
+    ParentScrollDirective,
+    TopicController,
+    EditController
 ) {
     angular.module('cmtyTopic', [])
 
     .factory('ModalService', ModalService)
     .directive('cmtyLoad', LoadDirective)
     .directive('cmtyParentScroll', ParentScrollDirective)
-    .controller('TopicController', TopicController);
+    .controller('TopicController', TopicController)
+    .controller('EditController', EditController);
 });

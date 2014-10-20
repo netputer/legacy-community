@@ -171,6 +171,28 @@ define(function () {
                     url: API_ROOT + '/topics/' + options.topicId + '/remove'
                 });
             },
+            editTopic: function (options) {
+                options = options || {};
+
+                var pictures = options.pictures || '';
+
+                if (options.pictures instanceof Array) {
+                    pictures = options.pictures.join(',');
+                }
+
+                if (pictures.length === 0) {
+                    pictures = undefined;
+                }
+
+                return $http({
+                    method: 'POST',
+                    url: API_ROOT + '/topics/' + options.topicId + '/edit',
+                    data: {
+                        'message': options.message,
+                        'pictures': pictures
+                    }
+                });
+            },
             postComment: function (options) {
                 options = options || {};
 
