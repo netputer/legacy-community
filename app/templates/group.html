@@ -27,12 +27,13 @@
     <div class="body">
         <div class="body-nav g-nav w-cf">
             <ul>
-                <li ng-class="{selected: ctrl.currentTab === 'topics'}" ng-click="ctrl.currentTab = 'topics'">小组话题</li>
-                <li ng-class="{selected: ctrl.currentTab === 'members'}" ng-click="ctrl.currentTab = 'members'">小组成员</li>
+                <li ng-class="{selected: ctrl.currentTab === 'topics'}" ng-click="ctrl.switchTabTo('topics')">最新</li>
+                <li ng-class="{selected: ctrl.currentTab === 'featured'}" ng-click="ctrl.switchTabTo('featured')">精华</li>
+                <li ng-class="{selected: ctrl.currentTab === 'members'}" ng-click="ctrl.switchTabTo('members')">成员</li>
             </ul>
         </div>
 
-        <div class="topics" ng-show="ctrl.currentTab === 'topics'" infinite-scroll="ctrl.loadMoreTopics()" infinite-scroll-disabled="ctrl.busy || !ctrl.hasMore || ctrl.currentTab !== 'topics'" infinite-scroll-distance="0.2">
+        <div class="topics" ng-show="ctrl.currentTab !== 'members'" infinite-scroll="ctrl.loadMoreTopics()" infinite-scroll-disabled="ctrl.busy || !ctrl.hasMore || ctrl.currentTab === 'members'" infinite-scroll-distance="0.2">
             <ul>
                 <li ng-repeat="topic in ctrl.topics track by $index" class="w-component-card w-component-card-hover" ng-click="ctrl.showTopic(topic.id)">
                     <span class="sticky" ng-show="topic.isSticky">置顶</span>

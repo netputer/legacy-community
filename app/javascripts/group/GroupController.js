@@ -21,6 +21,17 @@ define([
         scope.members = [];
         scope.blocks = [];
 
+        scope.switchTabTo = function (newTab) {
+            var oldTab = scope.currentTab;
+            scope.currentTab = newTab;
+
+            if (oldTab !== newTab &&
+                oldTab !== 'members' &&
+                newTab !== 'members') {
+                scope.loadMoreTopics(true);
+            }
+        };
+
         var removeMemberFromNormal = function (normalMember) {
             var summaryIndex = _.findIndex(scope.membersSummary, function (member) {
                 return normalMember.uid === member.uid;
@@ -94,22 +105,36 @@ define([
             // });
         };
 
-        scope.loadMoreTopics = function () {
-            if (scope.busy || !scope.hasMore) {
+        scope.loadMoreTopics = function (reset) {
+            if (scope.busy) {
+                return;
+            }
+
+            if (!reset && !scope.hasMore) {
                 return;
             }
 
             scope.busy = true;
 
+            if (reset) {
+                scope.afterId = 0;
+            }
+
             GroupService.getGroupTopic({
                 groupId: $routeParams.id,
                 afterId: scope.afterId,
-                max: 10
+                max: 10,
+                isFeatured: scope.currentTab !== 'topics'
             }).then(function (xhr) {
                 var items = xhr.data.items;
 
-                if (items.length > 0) {
+                if (reset) {
+                    scope.topics = items;
+                } else {
                     scope.topics = scope.topics.concat(items);
+                }
+
+                if (items.length > 0) {
                     scope.afterId = items[items.length - 1].id;
                 }
 
