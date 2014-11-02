@@ -36,8 +36,8 @@
         <div class="topics" ng-show="ctrl.currentTab !== 'members'" infinite-scroll="ctrl.loadMoreTopics()" infinite-scroll-disabled="ctrl.busy || !ctrl.hasMore || ctrl.currentTab === 'members'" infinite-scroll-distance="0.2">
             <ul>
                 <li ng-repeat="topic in ctrl.topics track by $index" class="w-component-card w-component-card-hover" ng-click="ctrl.showTopic(topic.id)">
-                    <span class="sticky" ng-show="topic.isSticky && ctrl.currentTab !== 'featured'">置顶</span>
-                    <span class="sticky" ng-show="topic.isFeatured && ctrl.currentTab === 'featured'">精华</span>
+                    <span class="badge" ng-show="topic.isSticky && ctrl.currentTab !== 'featured'">置顶</span>
+                    <span class="badge" ng-show="topic.isFeatured && ctrl.currentTab === 'featured'">精华</span>
                     <div class="avatar">
                         <img class="g-avatar" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ topic.author.avatar }}">
                     </div>
