@@ -31,6 +31,7 @@ define(function () {
             },
             getGroupTopic: function (options) {
                 options = options || {};
+                options.type = Number(!!options.isFeatured);
 
                 return $http({
                     method: 'GET',
@@ -39,7 +40,8 @@ define(function () {
                         'group_id': options.groupId,
                         'start': options.start,
                         'after_id': options.afterId,
-                        'max': options.max
+                        'max': options.max,
+                        'type': options.type
                     }
                 });
             },
