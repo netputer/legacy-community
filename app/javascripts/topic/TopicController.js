@@ -110,6 +110,8 @@ define([
             }).then(function (xhr) {
                 if (xhr.data.code === 0) {
                     scope.topic.isSticky = value;
+                } else {
+                    alert(xhr.data.msg);
                 }
             });
         };
