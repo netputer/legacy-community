@@ -165,6 +165,17 @@ define(function () {
                     }
                 });
             },
+            featureTopic: function (options) {
+                options = options || {};
+
+                return $http({
+                    method: 'POST',
+                    url: API_ROOT + '/topics/' + options.topicId + '/feature',
+                    data: {
+                        value: options.value
+                    }
+                });
+            },
             deleteTopic: function (options) {
                 options = options || {};
 
