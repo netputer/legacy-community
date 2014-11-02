@@ -116,6 +116,19 @@ define([
             });
         };
 
+        scope.featureTopic = function (value) {
+            GroupService.featureTopic({
+                topicId: topicId,
+                value: value + 0
+            }).then(function (xhr) {
+                if (xhr.data.code === 0) {
+                    scope.topic.isFeatured = value;
+                } else {
+                    alert(xhr.data.msg);
+                }
+            });
+        };
+
         scope.deleteTopic = function () {
             if (confirm('确认删除这个话题？')) {
                 GroupService.deleteTopic({
