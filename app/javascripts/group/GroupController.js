@@ -11,7 +11,6 @@ define([
         scope.currentMemberTab = 'all';
 
         scope.topics = [];
-        scope.startId = 0;
         scope.afterId = 0;
         scope.busy = false;
         scope.hasMore = true;
@@ -21,6 +20,17 @@ define([
         scope.admins = [];
         scope.members = [];
         scope.blocks = [];
+
+        scope.switchTabTo = function (newTab) {
+            var oldTab = scope.currentTab;
+            scope.currentTab = newTab;
+
+            if (oldTab !== newTab &&
+                oldTab !== 'members' &&
+                newTab !== 'members') {
+                scope.loadMoreTopics(true);
+            }
+        };
 
         var removeMemberFromNormal = function (normalMember) {
             var summaryIndex = _.findIndex(scope.membersSummary, function (member) {
@@ -95,24 +105,36 @@ define([
             // });
         };
 
-        scope.loadMoreTopics = function () {
-            if (scope.busy || !scope.hasMore) {
+        scope.loadMoreTopics = function (reset) {
+            if (scope.busy) {
+                return;
+            }
+
+            if (!reset && !scope.hasMore) {
                 return;
             }
 
             scope.busy = true;
 
+            if (reset) {
+                scope.afterId = 0;
+            }
+
             GroupService.getGroupTopic({
                 groupId: $routeParams.id,
-                start: scope.startId,
-                // afterId: scope.afterId,
-                max: 10
+                afterId: scope.afterId,
+                max: 10,
+                isFeatured: scope.currentTab !== 'topics'
             }).then(function (xhr) {
                 var items = xhr.data.items;
 
-                if (items.length > 0) {
+                if (reset) {
+                    scope.topics = items;
+                } else {
                     scope.topics = scope.topics.concat(items);
-                    scope.startId = scope.startId + items.length;
+                }
+
+                if (items.length > 0) {
                     scope.afterId = items[items.length - 1].id;
                 }
 

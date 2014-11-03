@@ -110,6 +110,21 @@ define([
             }).then(function (xhr) {
                 if (xhr.data.code === 0) {
                     scope.topic.isSticky = value;
+                } else {
+                    alert(xhr.data.msg);
+                }
+            });
+        };
+
+        scope.featureTopic = function (value) {
+            GroupService.featureTopic({
+                topicId: topicId,
+                value: value + 0
+            }).then(function (xhr) {
+                if (xhr.data.code === 0) {
+                    scope.topic.isFeatured = value;
+                } else {
+                    alert(xhr.data.msg);
                 }
             });
         };

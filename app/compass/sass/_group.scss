@@ -132,7 +132,7 @@
                 }
             }
 
-            .sticky {
+            .badge {
                 position: absolute;
                 top: 0;
                 right: 0;
@@ -226,6 +226,14 @@
                 .nick,
                 .time {
                     vertical-align: middle;
+                }
+            }
+        }
+
+        .topics-latest {
+            .topic-sticky {
+                .content {
+                    max-height: 1.5em;
                 }
             }
         }

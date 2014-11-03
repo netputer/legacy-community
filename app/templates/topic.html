@@ -41,12 +41,13 @@
                 </div>
                 <div class="time w-text-info">{{ ctrl.topic.createdTime | relative }}</div>
             </div>
-            <div class="action" ng-if="ctrl.topic.curUserPermissions.indexOf('DELETE') > -1 || ctrl.topic.curUserPermissions.indexOf('STICK') > -1">
+            <div class="action" ng-if="ctrl.topic.curUserPermissions.indexOf('EDIT') > -1 || ctrl.topic.curUserPermissions.indexOf('DELETE') > -1 || ctrl.topic.curUserPermissions.indexOf('STICK') > -1 || ctrl.topic.curUserPermissions.indexOf('FEATURE') > -1">
                 <span class="g-icon-more-btn dropdown dropdown-toggle">
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li ng-if="ctrl.topic.curUserPermissions.indexOf('EDIT') > -1"><a ng-click="ctrl.editTopic()">修改</a></li>
                         <li ng-if="ctrl.topic.curUserPermissions.indexOf('DELETE') > -1"><a ng-click="ctrl.deleteTopic()">删除</a></li>
                         <li ng-if="ctrl.topic.curUserPermissions.indexOf('STICK') > -1"><a ng-click="ctrl.stickTopic(!ctrl.topic.isSticky)">{{ ctrl.topic.isSticky ? '取消置顶' : '置顶' }}</a></li>
+                        <li ng-if="ctrl.topic.curUserPermissions.indexOf('FEATURE') > -1"><a ng-click="ctrl.featureTopic(!ctrl.topic.isFeatured)">{{ ctrl.topic.isFeatured ? '取消精华' : '加为精华' }}</a></li>
                     </ul>
                 </span>
             </div>

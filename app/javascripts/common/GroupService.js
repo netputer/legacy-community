@@ -31,6 +31,7 @@ define(function () {
             },
             getGroupTopic: function (options) {
                 options = options || {};
+                options.type = Number(!!options.isFeatured);
 
                 return $http({
                     method: 'GET',
@@ -39,7 +40,8 @@ define(function () {
                         'group_id': options.groupId,
                         'start': options.start,
                         'after_id': options.afterId,
-                        'max': options.max
+                        'max': options.max,
+                        'type': options.type
                     }
                 });
             },
@@ -158,6 +160,17 @@ define(function () {
                 return $http({
                     method: 'POST',
                     url: API_ROOT + '/topics/' + options.topicId + '/stick',
+                    data: {
+                        value: options.value
+                    }
+                });
+            },
+            featureTopic: function (options) {
+                options = options || {};
+
+                return $http({
+                    method: 'POST',
+                    url: API_ROOT + '/topics/' + options.topicId + '/feature',
                     data: {
                         value: options.value
                     }

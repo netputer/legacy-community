@@ -27,15 +27,23 @@
     <div class="body">
         <div class="body-nav g-nav w-cf">
             <ul>
-                <li ng-class="{selected: ctrl.currentTab === 'topics'}" ng-click="ctrl.currentTab = 'topics'">小组话题</li>
-                <li ng-class="{selected: ctrl.currentTab === 'members'}" ng-click="ctrl.currentTab = 'members'">小组成员</li>
+                <li ng-class="{selected: ctrl.currentTab === 'topics'}" ng-click="ctrl.switchTabTo('topics')">最新</li>
+                <li ng-class="{selected: ctrl.currentTab === 'featured'}" ng-click="ctrl.switchTabTo('featured')">精华</li>
+                <li ng-class="{selected: ctrl.currentTab === 'members'}" ng-click="ctrl.switchTabTo('members')">成员</li>
             </ul>
         </div>
 
-        <div class="topics" ng-show="ctrl.currentTab === 'topics'" infinite-scroll="ctrl.loadMoreTopics()" infinite-scroll-disabled="ctrl.busy || !ctrl.hasMore || ctrl.currentTab !== 'topics'" infinite-scroll-distance="0.2">
+        <div class="topics" ng-class="{
+            'topics-latest': ctrl.currentTab === 'topics',
+            'topics-featured': ctrl.currentTab === 'featured'
+        }" ng-show="ctrl.currentTab !== 'members'" infinite-scroll="ctrl.loadMoreTopics()" infinite-scroll-disabled="ctrl.busy || !ctrl.hasMore || ctrl.currentTab === 'members'" infinite-scroll-distance="0.2">
             <ul>
-                <li ng-repeat="topic in ctrl.topics track by $index" class="w-component-card w-component-card-hover" ng-click="ctrl.showTopic(topic.id)">
-                    <span class="sticky" ng-show="topic.isSticky">置顶</span>
+                <li ng-repeat="topic in ctrl.topics track by $index" class="w-component-card w-component-card-hover" ng-class="{
+                    'topic-sticky': topic.isSticky,
+                    'topic-featured': topic.isFeatured
+                }" ng-click="ctrl.showTopic(topic.id)">
+                    <span class="badge" ng-show="topic.isSticky && ctrl.currentTab !== 'featured'">置顶</span>
+                    <span class="badge" ng-show="topic.isFeatured && ctrl.currentTab === 'featured'">精华</span>
                     <div class="avatar">
                         <img class="g-avatar" src="http://s.wdjimg.com/static-files/account/images/4e4f5dae.avatar-default.png" ng-src="{{ topic.author.avatar }}">
                     </div>
@@ -69,7 +77,8 @@
                 </li>
             </ul>
             <div class="g-infinite-loading w-text-info" ng-show="ctrl.busy">正在加载…</div>
-            <div class="g-infinite-end w-text-info" ng-hide="ctrl.hasMore">没有更多话题了</div>
+            <div class="g-infinite-end w-text-info" ng-hide="ctrl.busy || ctrl.hasMore">没有更多话题了</div>
+            <div class="g-infinite-end w-text-info" ng-show="ctrl.currentTab === 'featured' && ctrl.topics.length === 0">这个小组还没有精华话题，加油哦！</div>
         </div>
 
         <div class="members w-component-card" ng-class="{manage: ctrl.group.curUserPermissions.indexOf('ADD_GROUP_ADMIN') > -1 && ctrl.group.curUserPermissions.indexOf('ADD_GROUP_BLACKUSER') > -1}" ng-show="ctrl.currentTab === 'members'">
