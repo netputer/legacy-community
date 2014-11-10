@@ -110,6 +110,12 @@ define([
             }).then(function (xhr) {
                 if (xhr.data.code === 0) {
                     scope.topic.isSticky = value;
+
+                    if (value) {
+                        alert('置顶成功！');
+                    } else {
+                        alert('取消置顶成功！');
+                    }
                 } else {
                     alert(xhr.data.msg);
                 }
@@ -123,6 +129,12 @@ define([
             }).then(function (xhr) {
                 if (xhr.data.code === 0) {
                     scope.topic.isFeatured = value;
+
+                    if (value) {
+                        alert('加为精华成功！');
+                    } else {
+                        alert('取消精华成功！');
+                    }
                 } else {
                     alert(xhr.data.msg);
                 }
