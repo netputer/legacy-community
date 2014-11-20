@@ -1,6 +1,6 @@
 {
   "name": "package",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "dependencies": {
     "adonis": "~0.1.1",
     "jquery": "~1.11.1",
