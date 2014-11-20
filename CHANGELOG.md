@@ -1,3 +1,25 @@
+<a name="0.3.0"></a>
+## 0.3.0 (2014-11-20)
+
+
+#### Bug Fixes
+
+* Hide empty notice when loading ((499484d2))
+
+
+#### Features
+
+* Add `feature` in topic menu ((d0008392))
+* Add `GroupService.featureTopic` ((d79a7a7e))
+* Only show one line of sticky topic in latest topics tab ((8b144349))
+* Add featured tag in topic lists ((01e17c3f))
+* Show empty notice when no featured topic in a group ((867d8bf1))
+* Add featured tab to group page ((c0cf880c))
+* Add `edit` in topic menu ((e739dfda))
+* Edit topic ((e63f4510))
+* Add `GroupService.editTopic` ((337c5f59))
+
+
 <a name="0.2.0"></a>
 ## 0.2.0 (2014-10-09)
 
